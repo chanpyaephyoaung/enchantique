@@ -9,7 +9,7 @@
       "client": "npm start --prefix frontend",
       "dev": "concurrently \"npm run server\" \"npm run client\"",
       "test": "jest --coverage",
-      "lint": "\"npm run eslint --prefix frontend"
+      "lint": "npm run eslint --prefix frontend"
    },
    "author": "",
    "license": "ISC",
