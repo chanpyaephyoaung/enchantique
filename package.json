@@ -8,12 +8,15 @@
       "server": "nodemon -L backend/server.js",
       "client": "npm start --prefix frontend",
       "dev": "concurrently \"npm run server\" \"npm run client\"",
+      "test": "jest --coverage",
       "lint": "\"npm run eslint --prefix frontend"
    },
    "author": "",
    "license": "ISC",
    "devDependencies": {
+      "@babel/preset-env": "^7.23.6",
       "concurrently": "^8.2.2",
+      "jest": "^29.7.0",
       "nodemon": "^3.0.2"
    }
 }
