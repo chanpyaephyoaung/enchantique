@@ -8,12 +8,17 @@
       "server": "nodemon -L backend/server.js",
       "client": "npm start --prefix frontend",
       "dev": "concurrently \"npm run server\" \"npm run client\"",
-      "lint": "\"npm run eslint --prefix frontend"
+      "lint": "eslint ./frontend/src/**/*.{js,jsx,ts,tsx}"
    },
    "author": "",
    "license": "ISC",
    "devDependencies": {
+      "@babel/preset-env": "^7.23.6",
       "concurrently": "^8.2.2",
+      "eslint": "^8.56.0",
+      "eslint-plugin-react": "^7.33.2",
+      "eslint-plugin-react-hooks": "^4.6.0",
+      "eslint-plugin-react-refresh": "^0.4.5",
       "nodemon": "^3.0.2"
    }
 }
