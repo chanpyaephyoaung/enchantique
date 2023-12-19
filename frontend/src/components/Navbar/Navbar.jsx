@@ -33,23 +33,23 @@ const Navbar = () => {
                               <SearchForm />
                               <a
                                  href="#"
-                                 className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                                 className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
                               >
                                  <span className="relative">
-                                    <ShoppingCartIcon className="h-7 w-7 md:h-8 md:w-8" />
-                                    <span className="flex justify-center leading-none items-center w-5 h-5 text-xs md:text-sm md:w-7 md:h-7 absolute -top-3 -right-3 md:-top-4 md:-right-4 bg-clr-primary text-clr-white rounded-full">
+                                    <ShoppingCartIcon className="h-7 w-7" />
+                                    <span className="flex justify-center leading-none items-center w-5 h-5 text-xs md:w-6 md:h-6 absolute -top-3 -right-3 bg-clr-primary text-clr-white rounded-full">
                                        1
                                     </span>
                                  </span>
-                                 <span className="text-base md:text-lg">Cart</span>
+                                 <span className="text-base">Cart</span>
                               </a>
 
                               <a
                                  href="#"
-                                 className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                                 className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
                               >
-                                 <UserIcon className="h-7 w-7 md:h-8 md:w-8" />
-                                 <span className="text-base md:text-lg">Login</span>
+                                 <UserIcon className="h-7 w-7" />
+                                 <span className="text-base">Login</span>
                               </a>
                            </div>
                         </div>
