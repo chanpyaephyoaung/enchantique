@@ -1,4 +1,10 @@
+import Navbar from "./components/Navbar/Navbar.jsx";
+
 const App = () => {
-   return <div>Enchantique!!!!</div>;
+   return (
+      <div>
+         <Navbar />
+      </div>
+   );
 };
 export default App;
