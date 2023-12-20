@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon, ShoppingCartIcon, UserIcon } from "@heroicons/react/24/outline";
 import Container from "../UI/Container.jsx";
@@ -24,15 +25,18 @@ const Navbar = () => {
                      </div>
                      <div className="flex flex-1 items-center justify-between sm:items-stretch">
                         <div className="flex flex-shrink-0 items-center">
-                           <span className="font-['Playfair_Display_SC'] text-lg md:text-xl lg:text-2xl pl-3">
+                           <Link
+                              to="/"
+                              className="font-['Playfair_Display_SC'] text-lg md:text-xl lg:text-2xl"
+                           >
                               Enchantique
-                           </span>
+                           </Link>
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
-                           <div className="flex gap-x-2 items-center">
+                           <div className="flex gap-x-3 items-center">
                               <SearchForm />
-                              <a
-                                 href="#"
+                              <Link
+                                 to="/cart"
                                  className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
                               >
                                  <span className="relative">
@@ -42,15 +46,15 @@ const Navbar = () => {
                                     </span>
                                  </span>
                                  <span className="text-base">Cart</span>
-                              </a>
+                              </Link>
 
-                              <a
-                                 href="#"
+                              <Link
+                                 to="/sigin"
                                  className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
                               >
                                  <UserIcon className="h-7 w-7" />
-                                 <span className="text-base">Login</span>
-                              </a>
+                                 <span className="text-base">Log In</span>
+                              </Link>
                            </div>
                         </div>
                      </div>

@@ -4,7 +4,7 @@ const products = [
       name: "Stylus Pen For Ipad",
       image: "/images/stylus_pen.jpg",
       description:
-         "This iPad pencil charges fully in 13 minutes and allows 9 hours of continuous use. It auto shuts down after 10 minutes of inactivity to save power, flashing in the last minute of the 10-minute sleep mode and stops when picked up.sssssssssssssssssssssssssssssssssssssssssss",
+         "This iPad pencil charges fully in 13 minutes and allows 9 hours of continuous use. It auto shuts down after 10 minutes of inactivity to save power, flashing in the last minute of the 10-minute sleep mode and stops when picked up.",
       brand: "Apple",
       category: "Electronics",
       price: 15.99,
