@@ -42,7 +42,7 @@ const Navbar = () => {
                                  <span className="relative">
                                     <ShoppingCartIcon className="h-7 w-7" />
                                     <span className="flex justify-center leading-none items-center w-5 h-5 text-xs md:w-6 md:h-6 absolute -top-3 -right-3 bg-clr-primary text-clr-white rounded-full">
-                                       1
+                                       0
                                     </span>
                                  </span>
                                  <span className="text-base">Cart</span>
