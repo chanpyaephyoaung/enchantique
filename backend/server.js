@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import products from "./dummyProducts.js";
 import connectDatabase from "./config/database.js";
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const port = process.env.PORT || 3001;
 
