@@ -1,6 +1,13 @@
 import express from "express";
+import dotenv from "dotenv";
 import products from "./dummyProducts.js";
-const port = 3001;
+import connectDatabase from "./config/database.js";
+
+dotenv.config({ path: "../.env" });
+
+const port = process.env.PORT || 3001;
+
+connectDatabase();
 
 const app = express();
 
