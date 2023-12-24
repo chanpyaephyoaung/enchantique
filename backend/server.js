@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import products from "./dummyProducts.js";
+import products from "./data/dummyProducts.js";
 import connectDatabase from "./config/database.js";
 
 dotenv.config();
