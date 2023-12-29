@@ -14,7 +14,7 @@ dotenv.config();
 
 connectDatabase();
 
-const seedDummyData = async () => {
+export const seedDummyData = async () => {
    try {
       await Product.deleteMany();
       await User.deleteMany();
@@ -22,7 +22,7 @@ const seedDummyData = async () => {
       await Order.deleteMany();
 
       const createdDumUsers = await User.insertMany(users);
-      console.log(createdDumUsers);
+      // console.log(createdDumUsers);
       const admin = createdDumUsers[0]._id;
 
       const sampleProducts = products.map((prod) => ({
@@ -33,7 +33,7 @@ const seedDummyData = async () => {
       await Product.insertMany(sampleProducts);
 
       console.log("Dummy Data Successfully Seeded!");
-      process.exit();
+      // process.exit();
    } catch (err) {
       console.error(err.message);
       process.exit(1);
