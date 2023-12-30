@@ -14,7 +14,7 @@ dotenv.config();
 
 connectDatabase();
 
-const seedDummyData = async () => {
+export const seedDummyData = async () => {
    try {
       await Product.deleteMany();
       await User.deleteMany();
@@ -30,10 +30,13 @@ const seedDummyData = async () => {
          seller: admin,
       }));
 
-      await Product.insertMany(sampleProducts);
-
+      const createdProducts = await Product.insertMany(sampleProducts);
+      console.log(createdProducts);
       console.log("Dummy Data Successfully Seeded!");
-      process.exit();
+
+      if (process.env.NODE_ENV !== "test") {
+         process.exit();
+      }
    } catch (err) {
       console.error(err.message);
       process.exit(1);
@@ -63,5 +66,5 @@ switch (process.argv[2]) {
       removeDummyData();
       break;
    default:
-      seedDummyData();
+   // Do nothing
 }

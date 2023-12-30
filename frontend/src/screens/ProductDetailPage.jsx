@@ -27,7 +27,7 @@ const ProductDetailPage = () => {
             Go Back
          </Link>
 
-         <div className="grid lg:grid-cols-2 py-8">
+         <div className="grid lg:grid-cols-2 py-8 gap-6">
             <img src={currentProduct.image} alt={currentProduct.name} className="w-full" />
 
             <div className="grid self-start gap-y-3">

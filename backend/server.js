@@ -8,7 +8,9 @@ dotenv.config();
 
 const port = process.env.PORT || 3001;
 
-connectDatabase();
+if (process.env.NODE_ENV !== "test") {
+   connectDatabase();
+}
 
 const app = express();
 
@@ -21,4 +23,8 @@ app.use("/api/products", productRoutes);
 app.use(resourceNotFound);
 app.use(errorHandler);
 
-app.listen(port, () => console.log(`Server running on port: ${port}`));
+if (process.env.NODE_ENV !== "test") {
+   app.listen(port, () => console.log(`Server running on port: ${port}`));
+}
+
+export default app;
