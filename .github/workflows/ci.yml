@@ -15,6 +15,9 @@ jobs:
       timeout-minutes: 10
       runs-on: ubuntu-latest
 
+      env:
+      MONGOATLAS_URI_TEST: ${{ secrets.MONGOATLAS_URI_TEST }}
+
       steps:
          - name: Checkout
            uses: actions/checkout@v4
