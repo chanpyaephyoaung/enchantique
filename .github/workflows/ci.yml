@@ -4,7 +4,6 @@ on:
    push:
       branches:
          - main
-         - testingMocha
    pull_request:
       branches:
          - main

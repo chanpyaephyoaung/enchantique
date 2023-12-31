@@ -22,7 +22,6 @@ export const seedDummyData = async () => {
       await Order.deleteMany();
 
       const createdDumUsers = await User.insertMany(users);
-      console.log(createdDumUsers);
       const admin = createdDumUsers[0]._id;
 
       const sampleProducts = products.map((prod) => ({
@@ -31,7 +30,6 @@ export const seedDummyData = async () => {
       }));
 
       const createdProducts = await Product.insertMany(sampleProducts);
-      console.log(createdProducts);
       console.log("Dummy Data Successfully Seeded!");
 
       if (process.env.NODE_ENV !== "test") {
