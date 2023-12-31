@@ -1,7 +1,6 @@
 import { assert } from "chai";
 import request from "supertest";
-import mongoose, { mongo } from "mongoose";
-import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 import Product from "../../backend/dataModels/productModel.js";
 import { seedDummyData } from "../../backend/seeder.js";
 import User from "../../backend/dataModels/userModel.js";
