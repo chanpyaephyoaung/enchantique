@@ -51,10 +51,8 @@ describe("Integration tests for products controllers.", () => {
       });
 
       const createdProduct = await product.save();
-      console.log("CREATED PRODUCT - ", createdProduct);
 
       const res = await request(app).get(`/api/products/${createdProduct._id}`);
-      console.log("RESPONSE BODY - ", res.body);
 
       assert.equal(res.status, 200, "Request unsuccessful.");
       assert.isObject(res.body, "Product should be an object.");
