@@ -7,6 +7,8 @@ import User from "../../backend/dataModels/userModel.js";
 import users from "../../backend/data/dummyUsers.js";
 import app from "../../backend/server.js";
 
+console.log("Hiyah");
+
 process.env.NODE_ENV = "test";
 
 describe("Integration tests for products controllers.", () => {
