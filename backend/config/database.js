@@ -14,7 +14,7 @@ export default async () => {
 
       console.log(
          `MONGODB ATLAS Connected: ${
-            process.env.MONGOATLAS_URI_TEST ? "" : connection.connection.host
+            process.env.NODE_ENV === "test" ? "" : connection.connection.host
          }`
       );
    } catch (err) {
