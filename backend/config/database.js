@@ -11,7 +11,12 @@ export default async () => {
             ? process.env.MONGOATLAS_URI_TEST
             : process.env.MONGOATLAS_URI;
       const connection = await mongoose.connect(mongoDbUri);
-      console.log(`MONGODB ATLAS Connected: ${connection.connection.host}`);
+
+      console.log(
+         `MONGODB ATLAS Connected: ${
+            process.env.MONGOATLAS_URI_TEST ? "" : connection.connection.host
+         }`
+      );
    } catch (err) {
       console.log(`Error occurred: ${err.message}`);
       process.exit(1);

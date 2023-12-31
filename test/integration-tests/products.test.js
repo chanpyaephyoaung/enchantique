@@ -1,7 +1,6 @@
 import { assert } from "chai";
 import request from "supertest";
-import mongoose, { mongo } from "mongoose";
-import { ObjectId } from "mongodb";
+import mongoose from "mongoose";
 import Product from "../../backend/dataModels/productModel.js";
 import { seedDummyData } from "../../backend/seeder.js";
 import User from "../../backend/dataModels/userModel.js";
@@ -50,10 +49,8 @@ describe("Integration tests for products controllers.", () => {
       });
 
       const createdProduct = await product.save();
-      console.log("CREATED PRODUCT - ", createdProduct);
 
       const res = await request(app).get(`/api/products/${createdProduct._id}`);
-      console.log("RESPONSE BODY - ", res.body);
 
       assert.equal(res.status, 200, "Request unsuccessful.");
       assert.isObject(res.body, "Product should be an object.");
