@@ -16,7 +16,7 @@ jobs:
       runs-on: ubuntu-latest
 
       env:
-      MONGOATLAS_URI_TEST: ${{ secrets.MONGOATLAS_URI_TEST }}
+         MONGOATLAS_URI_TEST: ${{ secrets.MONGOATLAS_URI_TEST }}
 
       steps:
          - name: Checkout
