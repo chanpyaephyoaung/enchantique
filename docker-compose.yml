@@ -18,6 +18,6 @@ services:
          PORT: ${PORT}
          NODE_ENV: ${NODE_ENV}
          MONGOATLAS_URI: ${MONGOATLAS_URI}
-         MONGOATLAS_URI_TEST: ${MONGOATLAS_URI_TEST}
+         MONGOATLAS_URI_TEST: ${{ secrets.MONGOATLAS_URI_TEST }}
       volumes:
          - ./backend:/app
