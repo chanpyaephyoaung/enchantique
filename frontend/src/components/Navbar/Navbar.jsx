@@ -7,7 +7,7 @@ import SearchForm from "../Forms/SearchForm.jsx";
 
 const Navbar = () => {
    const { productsInCart } = useSelector((state) => state.shoppingCart);
-   console.log(productsInCart);
+
    return (
       <Disclosure as="nav" className="bg-clr-bg">
          {({ open }) => (
@@ -39,7 +39,7 @@ const Navbar = () => {
                            <div className="flex gap-x-3 items-center">
                               <SearchForm />
                               <Link
-                                 to="/cart"
+                                 to="/shopping-cart"
                                  className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
                               >
                                  <span className="relative">

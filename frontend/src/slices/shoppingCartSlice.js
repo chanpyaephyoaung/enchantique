@@ -25,9 +25,15 @@ const shoppingCartSlice = createSlice({
 
          return updateShoppingCartPricesState(state);
       },
+      removeProductFromCart: (state, action) => {
+         state.productsInCart = state.productsInCart.filter(
+            (prod) => prod._id !== action.payload.id
+         );
+         return updateShoppingCartPricesState(state);
+      },
    },
 });
 
-export const { addProductToCart } = shoppingCartSlice.actions;
+export const { addProductToCart, removeProductFromCart } = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;

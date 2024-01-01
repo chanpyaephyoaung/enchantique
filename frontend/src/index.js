@@ -13,12 +13,14 @@ import App from "./App.js";
 import HomePage from "./screens/HomePage.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 import ProductDetailPage from "./screens/ProductDetailPage.jsx";
+import ShoppingCartScreen from "./screens/ShoppingCartScreen.jsx";
 
 const router = createBrowserRouter(
    createRoutesFromElements(
       <Route path="/" element={<App />}>
          <Route index={true} element={<HomePage />} />
          <Route path="/product/:productId" element={<ProductDetailPage />} />
+         <Route path="/shopping-cart" element={<ShoppingCartScreen />} />
       </Route>
    )
 );

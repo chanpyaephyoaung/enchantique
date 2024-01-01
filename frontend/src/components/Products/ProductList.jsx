@@ -4,28 +4,32 @@ import ProductPreview from "./ProductPreview.jsx";
 const ProductList = () => {
    const { data: products, error, isLoading } = useGetAllProductsQuery();
 
-   return (
-      <>
-         {isLoading ? (
-            <h2>Please wait...</h2>
-         ) : error ? (
-            <h2>{error?.data?.message || error.error}</h2>
-         ) : (
-            <div className="grid gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
-               {products.map((product) => (
-                  <ProductPreview
-                     key={product._id}
-                     id={product._id}
-                     name={product.name}
-                     imagePath={product.image}
-                     price={product.price}
-                     rating={product.rating}
-                     reviewsCount={product.numReviews}
-                  />
-               ))}
-            </div>
-         )}
-      </>
-   );
+   let contentMarkup = "";
+
+   if (isLoading) {
+      contentMarkup = <h2>Please wait...</h2>;
+   } else if (error) {
+      console.log(error);
+      contentMarkup = <h2 className="text-clr-danger">{error?.data?.errMessage || error.error}</h2>;
+      console.log("Has a error!");
+   } else {
+      contentMarkup = (
+         <div className="grid gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
+            {products.map((product) => (
+               <ProductPreview
+                  key={product._id}
+                  id={product._id}
+                  name={product.name}
+                  imagePath={product.image}
+                  price={product.price}
+                  rating={product.rating}
+                  reviewsCount={product.numReviews}
+               />
+            ))}
+         </div>
+      );
+   }
+
+   return contentMarkup;
 };
 export default ProductList;
