@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon, ShoppingCartIcon, UserIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 import Container from "../UI/Container.jsx";
 import SearchForm from "../Forms/SearchForm.jsx";
 
 const Navbar = () => {
+   const { productsInCart } = useSelector((state) => state.shoppingCart);
+   console.log(productsInCart);
    return (
       <Disclosure as="nav" className="bg-clr-bg">
          {({ open }) => (
@@ -41,9 +44,15 @@ const Navbar = () => {
                               >
                                  <span className="relative">
                                     <ShoppingCartIcon className="h-7 w-7" />
-                                    <span className="flex justify-center leading-none items-center w-5 h-5 text-xs md:w-6 md:h-6 absolute -top-3 -right-3 bg-clr-primary text-clr-white rounded-full">
-                                       0
-                                    </span>
+
+                                    {productsInCart.length > 0 && (
+                                       <span className="flex justify-center leading-none items-center w-5 h-5 text-xs md:w-6 md:h-6 absolute -top-3 -right-3 bg-clr-primary text-clr-white rounded-full">
+                                          {productsInCart.reduce(
+                                             (acc, curProd) => acc + curProd.quantity,
+                                             0
+                                          )}
+                                       </span>
+                                    )}
                                  </span>
                                  <span className="text-base">Cart</span>
                               </Link>

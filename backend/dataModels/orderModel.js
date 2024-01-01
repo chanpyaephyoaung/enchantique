@@ -27,7 +27,7 @@ const orderSchema = mongoose.Schema(
          city: { type: String, required: true },
          country: { type: String, required: true },
       },
-      totalItemsPrice: {
+      totalRawProductPrice: {
          type: Number,
          required: true,
          default: 0.0,

@@ -1,12 +1,26 @@
-import { useParams, Link } from "react-router-dom";
+import { useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useGetSingleProductDetailsQuery } from "../slices/productsApiSlice.js";
+import { useDispatch } from "react-redux";
 import Container from "../components/UI/Container.jsx";
 import Rating from "../components/UI/Rating.jsx";
+import { generateSeriesOfNums } from "../helpers/mathHelpers.js";
+import { addProductToCart } from "../slices/shoppingCartSlice.js";
 
 const ProductDetailPage = () => {
    const { productId } = useParams();
 
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
+
+   const [prodQuantity, setProdQuantity] = useState(1);
+
    const { data: currentProduct, error, isLoading } = useGetSingleProductDetailsQuery(productId);
+
+   const addProductToCartHandler = () => {
+      dispatch(addProductToCart({ ...currentProduct, quantity: prodQuantity }));
+      navigate("/cart");
+   };
 
    return (
       <Container type="page">
@@ -46,12 +60,12 @@ const ProductDetailPage = () => {
                            <p className="text-sm md:text-base font-medium">STATUS</p>
                            <p
                               className={`text-base md:text-xl font-semibold ${
-                                 currentProduct.countInStock === 0
+                                 currentProduct.stocksCount === 0
                                     ? "text-clr-danger"
                                     : "text-clr-primary"
                               } `}
                            >
-                              {currentProduct.countInStock === 0 ? "Out Of Stock" : "In Stock"}
+                              {currentProduct.stocksCount === 0 ? "Out Of Stock" : "In Stock"}
                            </p>
                         </div>
                      </div>
@@ -65,9 +79,29 @@ const ProductDetailPage = () => {
                      </p>
                   </div>
 
+                  {currentProduct.stocksCount > 0 && (
+                     <div className="grid gap-y-2">
+                        <p className="text-sm md:text-base font-medium">QUANTITY</p>
+                        <select
+                           className="justify-self-start p-2 border border-clr-black-faded"
+                           name="quantity"
+                           id="quantity"
+                           value={prodQuantity}
+                           onChange={(e) => setProdQuantity(+e.target.value)}
+                        >
+                           {generateSeriesOfNums(currentProduct.stocksCount).map((i) => (
+                              <option key={i + 1} value={i + 1}>
+                                 {i + 1}
+                              </option>
+                           ))}
+                        </select>
+                     </div>
+                  )}
+
                   <button
+                     onClick={addProductToCartHandler}
                      type="button"
-                     disabled={currentProduct.countInStock === 0}
+                     disabled={currentProduct.stocksCount === 0}
                      className="mt-4 rounded-full inline-block justify-self-start text-clr-primary text-base md:text-lg font-medium py-2 px-4 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
                   >
                      Add to Cart
