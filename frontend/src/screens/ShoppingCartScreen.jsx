@@ -21,6 +21,11 @@ const ShoppingCartScreen = () => {
       dispatch(removeProductFromCart({ id }));
    };
 
+   // Proceed to checkout handler
+   const checkoutHandler = () => {
+      navigate("/signin?redirect=/shipping");
+   };
+
    let contentMarkup = "";
    const isCartEmpty = productsInCart.length === 0;
 
@@ -85,14 +90,20 @@ const ShoppingCartScreen = () => {
                </div>
             ))}
 
-            <div className="justify-self-end grid gap-y-2">
+            <div className="justify-self-center text-center grid gap-y-2">
                <p className="text-sm md:text-xl font-medium text-clr-black">
                   Subtotal ({productsInCart.reduce((acc, product) => acc + product.quantity, 0)})
                   items:
                </p>
-               <p className="justify-self-end text-sm md:text-2xl font-semibold text-clr-primary">
-                  ${totalAmount}
-               </p>
+               <p className="text-sm md:text-2xl font-semibold text-clr-primary">${totalAmount}</p>
+               <button
+                  onClick={checkoutHandler}
+                  type="button"
+                  disabled={productsInCart.length === 0}
+                  className="justify-self-center mt-4 rounded-full inline-block text-clr-primary text-base md:text-lg font-medium py-2 px-4 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
+               >
+                  Proceed to Checkout
+               </button>
             </div>
          </div>
       );
