@@ -1,7 +1,7 @@
+import { baseApiSlice } from "./baseApiSlice.js";
 import { PRODUCTS_BASE_URL } from "../helpers/constants.js";
-import { apiSlice } from "./apiSlice.js";
 
-export const productsApiSlice = apiSlice.injectEndpoints({
+export const productsApiSlice = baseApiSlice.injectEndpoints({
    endpoints: (builder) => ({
       getAllProducts: builder.query({
          query: () => ({
