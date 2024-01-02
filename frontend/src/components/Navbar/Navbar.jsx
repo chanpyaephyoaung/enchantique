@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon, ShoppingCartIcon, UserIcon } from "@heroicons/react/24/outline";
+import {
+   Bars3Icon,
+   XMarkIcon,
+   ShoppingCartIcon,
+   UserIcon,
+   ArrowRightStartOnRectangleIcon,
+} from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import Container from "../UI/Container.jsx";
 import SearchForm from "../Forms/SearchForm.jsx";
+import UserAccountDropdown from "./UserAccountDropdown.jsx";
 
 const Navbar = () => {
+   const { userAccInfo } = useSelector((state) => state.authUser);
    const { productsInCart } = useSelector((state) => state.shoppingCart);
 
    return (
@@ -57,13 +65,19 @@ const Navbar = () => {
                                  <span className="text-base">Cart</span>
                               </Link>
 
-                              <Link
-                                 to="/sigin"
-                                 className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
-                              >
-                                 <UserIcon className="h-7 w-7" />
-                                 <span className="text-base">Log In</span>
-                              </Link>
+                              {userAccInfo ? (
+                                 <div className="flex items-center gadiv-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal">
+                                    <UserAccountDropdown username={userAccInfo.name} />
+                                 </div>
+                              ) : (
+                                 <Link
+                                    to="/signin"
+                                    className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
+                                 >
+                                    <UserIcon className="h-7 w-7" />
+                                    <span className="text-base">Sign In</span>
+                                 </Link>
+                              )}
                            </div>
                         </div>
                      </div>
@@ -85,13 +99,32 @@ const Navbar = () => {
                         Cart
                      </Disclosure.Button>
 
-                     <Disclosure.Button
-                        as="a"
-                        className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
-                     >
-                        <UserIcon className="h-7 w-7 md:h-8 md:w-8" />
-                        Sign In
-                     </Disclosure.Button>
+                     {userAccInfo ? (
+                        <>
+                           <Disclosure.Button
+                              as="a"
+                              className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                           >
+                              <UserIcon className="h-7 w-7 md:h-8 md:w-8" />
+                              My Profile
+                           </Disclosure.Button>
+                           <Disclosure.Button
+                              as="a"
+                              className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                           >
+                              <ArrowRightStartOnRectangleIcon className="h-7 w-7 md:h-8 md:w-8" />
+                              Sign out
+                           </Disclosure.Button>
+                        </>
+                     ) : (
+                        <Disclosure.Button
+                           as="a"
+                           className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                        >
+                           <UserIcon className="h-7 w-7 md:h-8 md:w-8" />
+                           Sign In
+                        </Disclosure.Button>
+                     )}
 
                      <div className="px-3 py-2">
                         <SearchForm />

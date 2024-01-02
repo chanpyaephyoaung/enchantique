@@ -14,6 +14,7 @@ import HomePage from "./screens/HomePage.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 import ProductDetailPage from "./screens/ProductDetailPage.jsx";
 import ShoppingCartScreen from "./screens/ShoppingCartScreen.jsx";
+import SignInPage from "./screens/SignInPage.jsx";
 
 const router = createBrowserRouter(
    createRoutesFromElements(
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
          <Route index={true} element={<HomePage />} />
          <Route path="/product/:productId" element={<ProductDetailPage />} />
          <Route path="/shopping-cart" element={<ShoppingCartScreen />} />
+         <Route path="/signin" element={<SignInPage />} />
       </Route>
    )
 );
