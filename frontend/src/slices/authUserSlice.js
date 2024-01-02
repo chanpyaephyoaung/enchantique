@@ -20,9 +20,13 @@ const authUserSlice = createSlice({
          // Store in local storage
          localStorage.setItem("userAccInfo", JSON.stringify(payloadDetails));
       },
+      removeSignInDetails: (state) => {
+         state.userAccInfo = null;
+         localStorage.removeItem("userAccInfo");
+      },
    },
 });
 
-export const { setSignInDetails } = authUserSlice.actions;
+export const { setSignInDetails, removeSignInDetails } = authUserSlice.actions;
 
 export default authUserSlice.reducer;

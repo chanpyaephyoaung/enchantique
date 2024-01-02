@@ -1,17 +1,26 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { UserIcon } from "@heroicons/react/24/outline";
+import { useSignOutMutation } from "../../slices/usersApiSlice.js";
+import { removeSignInDetails } from "../../slices/authUserSlice.js";
 
 const UserAccountDropdown = ({ username }) => {
-   console.log("User account profile");
    const dispatch = useDispatch();
    const navigate = useNavigate();
 
+   const [signOut] = useSignOutMutation();
+
    const signOutHandler = async () => {
-      console.log("User is signed out!");
+      try {
+         await signOut().unwrap();
+         dispatch(removeSignInDetails());
+         navigate("/signin");
+      } catch (err) {
+         console.log(err);
+      }
    };
 
    return (
