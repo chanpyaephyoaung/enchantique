@@ -13,7 +13,7 @@ export const signInUser = asyncHandler(async (req, res) => {
    } else {
       generateJwtToken(res, currentUser._id);
 
-      res.json({
+      res.status(200).json({
          _id: currentUser._id,
          isAdmin: currentUser.isAdmin,
          name: currentUser.name,
@@ -68,9 +68,45 @@ export const signoutUser = asyncHandler(async (req, res) => {
 });
 
 export const getUserAccProfile = asyncHandler(async (req, res) => {
-   res.send("Get user account profile!");
+   const currentUser = await User.findById(req.currentUser._id);
+
+   if (!currentUser) {
+      res.status(404);
+      throw new Error("User is not found.");
+   } else {
+      res.status(200).json({
+         _id: currentUser._id,
+         name: currentUser.name,
+         email: currentUser.email,
+         isAdmin: currentUser.isAdmin,
+         telephoneNum: currentUser.telephoneNum,
+      });
+   }
 });
 
 export const updateUserAccProfile = asyncHandler(async (req, res) => {
-   res.send("Update user account profile!");
+   const currentUser = await User.findById(req.currentUser._id);
+
+   if (!currentUser) {
+      res.status(404);
+      throw new Error("Update unsuccessful. User not found.");
+   } else {
+      currentUser.name = req.body.name || currentUser.name;
+      currentUser.email = req.body.email || currentUser.email;
+      currentUser.telephoneNum = req.body.telephoneNum || currentUser.telephoneNum;
+
+      if (req.body.password) {
+         currentUser.password = req.body.password;
+      }
+
+      const updatedCurrentUser = await currentUser.save();
+
+      res.status(200).json({
+         _id: updatedCurrentUser._id,
+         isAdmin: updatedCurrentUser.isAdmin,
+         name: updatedCurrentUser.name,
+         email: updatedCurrentUser.email,
+         telephoneNum: updatedCurrentUser.telephoneNum,
+      });
+   }
 });
