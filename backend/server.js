@@ -16,6 +16,10 @@ if (process.env.NODE_ENV !== "test") {
 
 const app = express();
 
+// Body parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
    res.send("API is now running!!");
 });
