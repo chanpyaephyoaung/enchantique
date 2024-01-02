@@ -1,6 +1,6 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../dataModels/userModel.js";
-import jwt from "jsonwebtoken";
+import generateJwtToken from "../helpers/generateJwtToken..js";
 
 export const signInUser = asyncHandler(async (req, res) => {
    const { email, password } = req.body;
@@ -11,16 +11,7 @@ export const signInUser = asyncHandler(async (req, res) => {
       res.status(401);
       throw new Error("Invalid email or password. Please try again.");
    } else {
-      const jwtToken = jwt.sign({ userId: currentUser._id }, process.env.JWT_TOKEN_SECRET, {
-         expiresIn: "10d",
-      });
-
-      res.cookie("jwtCookie", jwtToken, {
-         httpOnly: true,
-         secure: process.env.NODE_ENV !== "development" || process.env.NODE_ENV === "test",
-         maxAge: 10 * 24 * 3600 * 1000, //10 days
-         sameSite: "strict",
-      });
+      generateJwtToken(res, currentUser._id);
 
       res.json({
          _id: currentUser._id,
@@ -34,7 +25,37 @@ export const signInUser = asyncHandler(async (req, res) => {
 });
 
 export const registerNewUser = asyncHandler(async (req, res) => {
-   res.send("Register New User!");
+   const { email, password, name, telephoneNum } = req.body;
+
+   const isUserExists = await User.findOne({ email });
+
+   if (!isUserExists) {
+      const newUser = await User.create({
+         name,
+         email,
+         password,
+         telephoneNum,
+      });
+
+      if (!newUser) {
+         res.status(400);
+         throw new Error("Invalid user form data.");
+      } else {
+         generateJwtToken(res, newUser._id);
+
+         res.status(201).json({
+            _id: newUser._id,
+            name: newUser.name,
+            email: newUser.email,
+            isAdmin: newUser.isAdmin,
+            telephoneNum: newUser.telephoneNum,
+            joinedDate: newUser.joinedDate,
+         });
+      }
+   } else {
+      res.status(400);
+      throw new Error("User already exists.");
+   }
 });
 
 export const signoutUser = asyncHandler(async (req, res) => {

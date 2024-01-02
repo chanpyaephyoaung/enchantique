@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema(
       },
       joinedDate: {
          type: Date,
+         default: new Date(),
       },
       email: {
          type: String,
@@ -31,6 +32,15 @@ const userSchema = new mongoose.Schema(
    },
    { timestamps: true }
 );
+
+userSchema.pre("save", async function (next) {
+   if (!this.isModified("password")) {
+      next();
+   }
+
+   const bcSalt = await bcrypt.genSalt(10);
+   this.password = await bcrypt.hash(this.password, bcSalt);
+});
 
 userSchema.methods.comparePassword = async function (passwordInput) {
    return await bcrypt.compare(passwordInput, this.password);

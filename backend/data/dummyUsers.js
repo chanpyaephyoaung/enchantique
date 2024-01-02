@@ -4,7 +4,6 @@ const users = [
    {
       name: "Admin",
       isAdmin: true,
-      joinedDate: new Date(),
       email: "admin@gmail.com",
       password: bcrypt.hashSync("123abc", 10),
       telephoneNum: "+44 1111111111",
@@ -12,7 +11,6 @@ const users = [
    {
       name: "Albus Dumbledore",
       isAdmin: false,
-      joinedDate: new Date(),
       email: "albus@gmail.com",
       password: bcrypt.hashSync("123abc", 10),
       telephoneNum: "+44 2222222222",
@@ -20,7 +18,6 @@ const users = [
    {
       name: "Severus Snape",
       isAdmin: false,
-      joinedDate: new Date(),
       email: "severus@gmail.com",
       password: bcrypt.hashSync("123abc", 10),
       telephoneNum: "+44 3333333333",
