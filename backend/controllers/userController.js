@@ -15,7 +15,7 @@ export const signInUser = asyncHandler(async (req, res) => {
          expiresIn: "10d",
       });
 
-      res.cookie("jwtToken", jwtToken, {
+      res.cookie("jwtCookie", jwtToken, {
          httpOnly: true,
          secure: process.env.NODE_ENV !== "development" || process.env.NODE_ENV === "test",
          maxAge: 10 * 24 * 3600 * 1000, //10 days
@@ -38,7 +38,12 @@ export const registerNewUser = asyncHandler(async (req, res) => {
 });
 
 export const signoutUser = asyncHandler(async (req, res) => {
-   res.send("Sign out user!");
+   res.cookie("jwtCookie", "", {
+      httpOnly: true,
+      expires: new Date(0), //expires immediately to clear out the cookie
+   });
+
+   res.status(200).json({ message: "User is signed out successfully." });
 });
 
 export const getUserAccProfile = asyncHandler(async (req, res) => {

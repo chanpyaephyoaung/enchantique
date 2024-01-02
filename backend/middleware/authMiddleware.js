@@ -5,7 +5,7 @@ import User from "../dataModels/userModel.js";
 export const protectRoutes = asyncHandler(async (req, res, next) => {
    let jwtToken;
 
-   jwtToken = req.cookies.jwtToken;
+   jwtToken = req.cookies.jwtCookie;
 
    if (!jwtToken) {
       res.status(401);
@@ -24,7 +24,6 @@ export const protectRoutes = asyncHandler(async (req, res, next) => {
 
 // Verify admin user middleware
 export const verifyAdmin = (req, res, next) => {
-   console.log(req.currentUser);
    if (!req.currentUser || !req.currentUser.isAdmin) {
       res.status(401);
       throw new Error("Unauthorised as admin user.");
