@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
@@ -26,7 +26,7 @@ const UserAccountDropdown = ({ username }) => {
    return (
       <Menu as="div" className="relative inline-block text-left z-40">
          <div className="grid items-center">
-            <Menu.Button className="inline-flex w-full justify-center rounded-md items-center">
+            <Menu.Button className="inline-flex gap-x-2 w-full justify-center rounded-md items-center">
                <UserIcon className="h-7 w-7" />
                <span className="text-base">{username}</span>
             </Menu.Button>
