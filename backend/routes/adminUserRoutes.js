@@ -5,14 +5,15 @@ import {
    deleteSingleUserById,
    updateSingleUserById,
 } from "../controllers/adminUserController.js";
+import { protectRoutes, verifyAdmin } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", getAllUsers);
+router.get("/", protectRoutes, verifyAdmin, getAllUsers);
 router
    .route("/:userId")
-   .get(getSingleUserById)
-   .put(updateSingleUserById)
-   .delete(deleteSingleUserById);
+   .get(protectRoutes, verifyAdmin, getSingleUserById)
+   .put(protectRoutes, verifyAdmin, updateSingleUserById)
+   .delete(protectRoutes, verifyAdmin, deleteSingleUserById);
 
 export default router;
