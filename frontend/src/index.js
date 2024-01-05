@@ -13,7 +13,7 @@ import App from "./App.js";
 import HomePage from "./screens/HomePage.jsx";
 import reportWebVitals from "./reportWebVitals.js";
 import ProductDetailPage from "./screens/ProductDetailPage.jsx";
-import ShoppingCartScreen from "./screens/ShoppingCartScreen.jsx";
+import ShoppingCartPage from "./screens/ShoppingCartPage.jsx";
 import SignInPage from "./screens/SignInPage.jsx";
 import SignUpPage from "./screens/SignUpPage.jsx";
 
@@ -22,7 +22,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<App />}>
          <Route index={true} element={<HomePage />} />
          <Route path="/product/:productId" element={<ProductDetailPage />} />
-         <Route path="/shopping-cart" element={<ShoppingCartScreen />} />
+         <Route path="/shopping-cart" element={<ShoppingCartPage />} />
          <Route path="/signin" element={<SignInPage />} />
          <Route path="/signup" element={<SignUpPage />} />
       </Route>

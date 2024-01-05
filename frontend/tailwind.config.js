@@ -7,7 +7,7 @@ module.exports = {
       extend: {
          colors: {
             "clr-primary": "#088395",
-            "clr-yellow": "#F9C338",
+            "clr-yellow": "#dda71f",
             "clr-danger": "#95082A",
             "clr-bg": "#F1F1F1",
             "clr-black": "#333333",

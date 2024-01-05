@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import Container from "../components/UI/Container";
+import Container from "../components/UI/Container.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { generateSeriesOfNums } from "../helpers/mathHelpers.js";
 import { addProductToCart, removeProductFromCart } from "../slices/shoppingCartSlice.js";

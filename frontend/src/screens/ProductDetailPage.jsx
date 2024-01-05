@@ -90,6 +90,7 @@ const ProductDetailPage = () => {
                )}
 
                <button
+                  data-testid="addToCartBtn"
                   onClick={addProductToCartHandler}
                   type="button"
                   disabled={currentProduct.stocksCount === 0}
