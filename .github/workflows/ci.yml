@@ -4,6 +4,7 @@ on:
    push:
       branches:
          - main
+         - wdci
    pull_request:
       branches:
          - main
@@ -38,7 +39,8 @@ jobs:
            run: npm run test:unit
 
          - name: Run React tests
-           run: npm run test:react
+           working-directory: ./frontend
+           run: npm run test
 
          - name: Run ESLint tests
            run: npm run lint
