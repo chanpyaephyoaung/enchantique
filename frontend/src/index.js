@@ -29,8 +29,8 @@ const router = createBrowserRouter(
          <Route path="/signin" element={<SignInPage />} />
          <Route path="/signup" element={<SignUpPage />} />
 
-         <Route path="/checkout" element={<CheckoutPage />} />
          <Route path="" element={<ProtectedComponent />}>
+            <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/shipping" element={<ShippingAddressPage />} />
          </Route>
       </Route>

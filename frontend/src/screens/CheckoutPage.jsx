@@ -1,14 +1,19 @@
+import { useState, useState9 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/UI/Container.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { generateSeriesOfNums } from "../helpers/mathHelpers.js";
 import { addProductToCart, removeProductFromCart } from "../slices/shoppingCartSlice.js";
+import { setPaymentType } from "../slices/shoppingCartSlice.js";
+import { DEFAULT_PAYMENT_METHOD } from "../helpers/constants.js";
 
 const CheckoutPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
 
-   const { productsInCart, totalAmount } = useSelector((state) => state.shoppingCart);
+   const { productsInCart, totalAmount, userDeliveryAddress } = useSelector(
+      (state) => state.shoppingCart
+   );
 
    // Adding product to cart
    const addProductToShoppingCartHandler = (product, quantity) => {
@@ -21,6 +26,10 @@ const CheckoutPage = () => {
       dispatch(removeProductFromCart({ id }));
    };
 
+   const applyPaymentHandler = () => {
+      dispatch(setPaymentType({ paymentType: DEFAULT_PAYMENT_METHOD }));
+   };
+
    return (
       <Container type="page">
          <h2 className="text-xl text-clr-black md:text-3xl font-medium mb-9">Checkout Page</h2>
@@ -30,14 +39,38 @@ const CheckoutPage = () => {
                1 - Delivery
             </h2>
             <div className="w-full grid col-span-2 sm:col-span-3 self-start">
-               <p className="text-sm md:text-lg font-normal text-clr-black">
-                  First Line of Address
-               </p>
-               <p className="text-sm md:text-lg font-normal text-clr-black">
-                  Second Line of Address
-               </p>
-               <p className="text-sm md:text-lg font-normal text-clr-black">Postal Code</p>
-               <p className="text-sm md:text-lg font-normal text-clr-black">City</p>
+               {Object.keys(userDeliveryAddress).length === 0 ? (
+                  <p className="grid gap-y-2 text-sm md:text-lg font-normal text-clr-black">
+                     Please set your delivery address here.
+                     <Link
+                        to="/shipping"
+                        className="text-sm md:text-base font-light text-clr-primary hover:underline"
+                     >
+                        Set delivery address
+                     </Link>
+                  </p>
+               ) : (
+                  <>
+                     <p className="text-sm md:text-lg font-normal text-clr-black">
+                        {userDeliveryAddress.firstLineAddress}
+                     </p>
+                     <p className="text-sm md:text-lg font-normal text-clr-black">
+                        {userDeliveryAddress.secondLineAddress}
+                     </p>
+                     <p className="text-sm md:text-lg font-normal text-clr-black">
+                        {userDeliveryAddress.postalCode}
+                     </p>
+                     <p className="text-sm md:text-lg font-normal text-clr-black">
+                        {userDeliveryAddress.city}
+                     </p>
+                     <Link
+                        to="/shipping"
+                        className="mt-2 text-sm md:text-base font-light text-clr-primary hover:underline"
+                     >
+                        Update delivery address
+                     </Link>
+                  </>
+               )}
             </div>
          </div>
 
@@ -47,8 +80,15 @@ const CheckoutPage = () => {
             </h2>
             <div className="w-full grid col-span-2 sm:col-span-3 self-start">
                <p className="text-sm md:text-lg font-normal text-clr-black">
-                  My preferred Payment Method
+                  Paypal or credit card
                </p>
+               <button
+                  onClick={applyPaymentHandler}
+                  type="button"
+                  className="justify-self-start mt-4 rounded-full inline-block text-clr-primary text-sm md:text-base font-medium py-1 px-4 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
+               >
+                  Apply
+               </button>
             </div>
          </div>
 
@@ -59,12 +99,12 @@ const CheckoutPage = () => {
             {productsInCart.map((prod) => (
                <div
                   key={prod._id}
-                  className="grid grid-cols-4 sm:grid-cols-5 py-4 gap-y-4 gap-x-8 justify-items-center border-b border-clr-black-faded"
+                  className="grid grid-cols-3 sm:grid-cols-4 py-4 gap-y-4 gap-x-8 justify-items-center border-b border-clr-black-faded"
                >
                   <Link to={`/product/${prod._id}`} className="w-full col-span-1 mx-auto block">
                      <img src={prod.image} alt={prod.name} />
                   </Link>
-                  <div className="w-full grid col-span-3 sm:col-span-4 self-start">
+                  <div className="w-full grid col-span-2 sm:col-span-3 self-start">
                      <div className="grid gap-y-2">
                         <Link
                            to={`/product/${prod._id}`}
@@ -118,7 +158,7 @@ const CheckoutPage = () => {
                disabled={productsInCart.length === 0}
                className="justify-self-center mt-4 rounded-full inline-block text-clr-primary text-base md:text-lg font-medium py-2 px-8 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
             >
-               Pay
+               Buy Now
             </button>
          </div>
       </Container>

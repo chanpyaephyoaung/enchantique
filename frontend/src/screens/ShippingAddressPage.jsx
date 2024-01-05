@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 import FormContainer from "../components/UI/FormContainer.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "../components/UI/Container.jsx";
-import { saveUserDeliveryAddress } from "../slices/shoppingCartSlice.js";
+import { setUserDeliveryAddress } from "../slices/shoppingCartSlice.js";
 
 const ShippingAddressPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
 
    const shoppingCart = useSelector((state) => state.shoppingCart);
-   console.log(shoppingCart);
    const { userDeliveryAddress } = shoppingCart;
 
    const storedFirstLineAddr = userDeliveryAddress?.firstLineAddress || "";
@@ -26,7 +25,7 @@ const ShippingAddressPage = () => {
    const submitHandler = async (e) => {
       e.preventDefault();
       dispatch(
-         saveUserDeliveryAddress({
+         setUserDeliveryAddress({
             address: { firstLineAddress, secondLineAddress, postalCode, city },
          })
       );

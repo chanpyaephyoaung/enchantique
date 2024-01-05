@@ -23,7 +23,7 @@ const ShoppingCartPage = () => {
 
    // Proceed to checkout handler
    const checkoutHandler = () => {
-      navigate("/signin?redirect=/shipping");
+      navigate("/signin?redirect=/checkout");
    };
 
    let contentMarkup = "";

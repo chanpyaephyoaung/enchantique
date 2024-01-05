@@ -33,14 +33,18 @@ const shoppingCartSlice = createSlice({
          );
          return updateShoppingCartPricesState(state);
       },
-      saveUserDeliveryAddress: (state, action) => {
+      setUserDeliveryAddress: (state, action) => {
          state.userDeliveryAddress = action.payload.address;
+         return updateShoppingCartPricesState(state);
+      },
+      setPaymentType: (state, action) => {
+         state.paymentType = action.payload.paymentType;
          return updateShoppingCartPricesState(state);
       },
    },
 });
 
-export const { addProductToCart, removeProductFromCart, saveUserDeliveryAddress } =
+export const { addProductToCart, removeProductFromCart, setUserDeliveryAddress, setPaymentType } =
    shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;
