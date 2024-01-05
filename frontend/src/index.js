@@ -16,6 +16,9 @@ import ProductDetailPage from "./screens/ProductDetailPage.jsx";
 import ShoppingCartPage from "./screens/ShoppingCartPage.jsx";
 import SignInPage from "./screens/SignInPage.jsx";
 import SignUpPage from "./screens/SignUpPage.jsx";
+import ShippingAddressPage from "./screens/ShippingAddressPage.jsx";
+import CheckoutPage from "./screens/CheckoutPage.jsx";
+import ProtectedComponent from "./components/UI/ProtectedComponent.jsx";
 
 const router = createBrowserRouter(
    createRoutesFromElements(
@@ -25,6 +28,11 @@ const router = createBrowserRouter(
          <Route path="/shopping-cart" element={<ShoppingCartPage />} />
          <Route path="/signin" element={<SignInPage />} />
          <Route path="/signup" element={<SignUpPage />} />
+
+         <Route path="/checkout" element={<CheckoutPage />} />
+         <Route path="" element={<ProtectedComponent />}>
+            <Route path="/shipping" element={<ShippingAddressPage />} />
+         </Route>
       </Route>
    )
 );

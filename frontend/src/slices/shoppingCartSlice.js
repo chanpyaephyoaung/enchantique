@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { updateShoppingCartPricesState } from "../helpers/shoppingCartHelpers.js";
+import { DEFAULT_PAYMENT_METHOD } from "../helpers/constants.js";
 
 // Retrieve from localstorage if it was stored
 const initialState = localStorage.getItem("shoppingCart")
    ? JSON.parse(localStorage.getItem("shoppingCart"))
-   : { productsInCart: [] };
+   : { productsInCart: [], defaultPaymentMethod: DEFAULT_PAYMENT_METHOD, userDeliveryAddress: {} };
 
 const shoppingCartSlice = createSlice({
    name: "shoppingCart",
@@ -20,7 +21,8 @@ const shoppingCartSlice = createSlice({
                prod._id === existingProduct._id ? product : prod
             );
          } else {
-            state.productsInCart = [...state.productsInCart, product];
+            const updatedProductsInCart = [...state.productsInCart, product];
+            state.productsInCart = updatedProductsInCart;
          }
 
          return updateShoppingCartPricesState(state);
@@ -31,9 +33,14 @@ const shoppingCartSlice = createSlice({
          );
          return updateShoppingCartPricesState(state);
       },
+      saveUserDeliveryAddress: (state, action) => {
+         state.userDeliveryAddress = action.payload.address;
+         return updateShoppingCartPricesState(state);
+      },
    },
 });
 
-export const { addProductToCart, removeProductFromCart } = shoppingCartSlice.actions;
+export const { addProductToCart, removeProductFromCart, saveUserDeliveryAddress } =
+   shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;
