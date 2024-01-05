@@ -12,7 +12,6 @@
       "data:remove": "node backend/seeder.js -r",
       "test:integration": "cross-env NODE_ENV=test mocha test/integration-tests --timeout 15000 --exit",
       "test:unit": "cross-env NODE_ENV=test mocha test/unit-tests --timeout 15000 --exit",
-      "test:react": "npm run test --prefix frontend",
       "lint": "eslint ./frontend/src/**/*.{js,jsx,ts,tsx}"
    },
    "author": "",
