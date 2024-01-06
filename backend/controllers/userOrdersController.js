@@ -54,7 +54,7 @@ export const createOrderByUser = asyncHandler(async (req, res) => {
       res.status(201).json(savedOrder);
    } else {
       res.status(400);
-      throw new Error("There is no products in the order.");
+      throw new Error("There are no products in the order.");
    }
 });
 

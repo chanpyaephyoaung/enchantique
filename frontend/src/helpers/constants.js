@@ -7,4 +7,3 @@ export const ADMIN_ORDERS_BASE_URL = "/api/orders/admin";
 
 export const MAX_PRICE_TO_INCLUDE_SHIPPING_PRICE = 20;
 export const SHIPPING_PRICE = 5;
-export const DEFAULT_PAYMENT_METHOD = "PayPal";

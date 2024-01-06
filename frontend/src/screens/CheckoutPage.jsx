@@ -1,11 +1,8 @@
-import { useState, useState9 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/UI/Container.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { generateSeriesOfNums } from "../helpers/mathHelpers.js";
 import { addProductToCart, removeProductFromCart } from "../slices/shoppingCartSlice.js";
-import { setPaymentType } from "../slices/shoppingCartSlice.js";
-import { DEFAULT_PAYMENT_METHOD } from "../helpers/constants.js";
 
 const CheckoutPage = () => {
    const dispatch = useDispatch();
@@ -26,10 +23,6 @@ const CheckoutPage = () => {
       dispatch(removeProductFromCart({ id }));
    };
 
-   const applyPaymentHandler = () => {
-      dispatch(setPaymentType({ paymentType: DEFAULT_PAYMENT_METHOD }));
-   };
-
    return (
       <Container type="page">
          <h2 className="text-xl text-clr-black md:text-3xl font-medium mb-9">Checkout Page</h2>
@@ -39,7 +32,7 @@ const CheckoutPage = () => {
                1 - Delivery
             </h2>
             <div className="w-full grid col-span-2 sm:col-span-3 self-start">
-               {Object.keys(userDeliveryAddress).length === 0 ? (
+               {!userDeliveryAddress ? (
                   <p className="grid gap-y-2 text-sm md:text-lg font-normal text-clr-black">
                      Please set your delivery address here.
                      <Link
@@ -74,27 +67,9 @@ const CheckoutPage = () => {
             </div>
          </div>
 
-         <div className="grid grid-cols-3 sm:grid-cols-4 py-4 gap-4 justify-items-center border-b border-clr-black-faded">
-            <h2 className="w-full col-span-1 text-sm md:text-xl font-semibold text-clr-black">
-               2 - Payment Method
-            </h2>
-            <div className="w-full grid col-span-2 sm:col-span-3 self-start">
-               <p className="text-sm md:text-lg font-normal text-clr-black">
-                  Paypal or credit card
-               </p>
-               <button
-                  onClick={applyPaymentHandler}
-                  type="button"
-                  className="justify-self-start mt-4 rounded-full inline-block text-clr-primary text-sm md:text-base font-medium py-1 px-4 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
-               >
-                  Apply
-               </button>
-            </div>
-         </div>
-
          <div className="grid gap-y-6">
             <h2 className="mt-4 w-full col-span-1 text-sm md:text-xl font-semibold text-clr-black">
-               3 - Review Items
+               2 - Review Items
             </h2>
             {productsInCart.map((prod) => (
                <div
@@ -158,7 +133,7 @@ const CheckoutPage = () => {
                disabled={productsInCart.length === 0}
                className="justify-self-center mt-4 rounded-full inline-block text-clr-primary text-base md:text-lg font-medium py-2 px-8 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
             >
-               Buy Now
+               Place Order
             </button>
          </div>
       </Container>

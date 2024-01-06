@@ -39,7 +39,7 @@ export const registerNewUser = asyncHandler(async (req, res) => {
 
       if (!newUser) {
          res.status(400);
-         throw new Error("Invalid user form data.");
+         throw new Error("Invalid user form data. Please try again.");
       } else {
          generateJwtToken(res, newUser._id);
 

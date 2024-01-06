@@ -21,6 +21,7 @@ const authUserSlice = createSlice({
          localStorage.setItem("userAccInfo", JSON.stringify(payloadDetails));
       },
       removeSignInDetails: (state) => {
+         // Remove user account info from localstorage
          state.userAccInfo = null;
          localStorage.removeItem("userAccInfo");
       },

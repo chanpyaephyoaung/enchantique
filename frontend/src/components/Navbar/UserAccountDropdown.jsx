@@ -6,6 +6,7 @@ import { Fragment } from "react";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { useSignOutMutation } from "../../slices/usersApiSlice.js";
 import { removeSignInDetails } from "../../slices/authUserSlice.js";
+import { removeShoppingCartInfo } from "../../slices/shoppingCartSlice.js";
 
 const UserAccountDropdown = ({ username }) => {
    const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const UserAccountDropdown = ({ username }) => {
       try {
          await signOut().unwrap();
          dispatch(removeSignInDetails());
+         dispatch(removeShoppingCartInfo());
          navigate("/signin");
       } catch (err) {
          console.log(err);
