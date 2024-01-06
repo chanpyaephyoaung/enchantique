@@ -20,7 +20,7 @@ const orderSchema = mongoose.Schema(
             },
          },
       ],
-      shippingAddress: {
+      userDeliveryAddress: {
          firstLineAddress: { type: String, required: true },
          secondLineAddress: { type: String, required: true },
          postalCode: { type: String, required: true },
@@ -46,11 +46,11 @@ const orderSchema = mongoose.Schema(
          required: true,
          default: 0.0,
       },
-      paymentMethod: {
+      paymentType: {
          type: String,
          required: true,
       },
-      paymentResult: {
+      paymentOutcome: {
          id: { type: String },
          status: { type: String },
          updateTime: { type: String },

@@ -5,6 +5,8 @@ import connectDatabase from "./config/database.js";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import adminUserRoutes from "./routes/adminUserRoutes.js";
+import userOrderRoutes from "./routes/userOrderRoutes.js";
+import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 import { resourceNotFound, errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
@@ -31,6 +33,8 @@ app.get("/", (req, res) => {
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/users/admin", adminUserRoutes);
+app.use("/api/orders", userOrderRoutes);
+app.use("/api/orders/admin", adminOrderRoutes);
 
 app.use(resourceNotFound);
 app.use(errorHandler);
