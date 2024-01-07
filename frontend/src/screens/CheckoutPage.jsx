@@ -3,14 +3,26 @@ import Container from "../components/UI/Container.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { generateSeriesOfNums } from "../helpers/mathHelpers.js";
 import { addProductToCart, removeProductFromCart } from "../slices/shoppingCartSlice.js";
+import {
+   useCreateNewOrderByUserMutation,
+   useMakePaymentMutation,
+} from "../slices/ordersApiSlice.js";
 
 const CheckoutPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
 
-   const { productsInCart, totalAmount, userDeliveryAddress } = useSelector(
-      (state) => state.shoppingCart
-   );
+   const {
+      productsInCart,
+      shippingAmount,
+      taxAmount,
+      totalRawProductPrice,
+      totalAmount,
+      userDeliveryAddress,
+   } = useSelector((state) => state.shoppingCart);
+
+   const [createNewOrderByUser] = useCreateNewOrderByUserMutation();
+   const [makePayment] = useMakePaymentMutation();
 
    // Adding product to cart
    const addProductToShoppingCartHandler = (product, quantity) => {
@@ -21,6 +33,24 @@ const CheckoutPage = () => {
    // Removing existing product from cart
    const removeProductFromShoppingCartHandler = (id) => {
       dispatch(removeProductFromCart({ id }));
+   };
+
+   const checkoutHandler = async () => {
+      if (!userDeliveryAddress || Object.keys(userDeliveryAddress).length === 0) {
+         navigate("/shipping");
+         return;
+      }
+      const order = {
+         orderedProducts: productsInCart,
+         userDeliveryAddress,
+         shippingAmount,
+         taxAmount,
+         totalRawProductPrice,
+         totalAmount,
+      };
+      // const res = await createNewOrderByUser(order).unwrap();
+      const { url } = await makePayment(order).unwrap();
+      window.open(url, "_self");
    };
 
    return (
@@ -121,20 +151,34 @@ const CheckoutPage = () => {
             ))}
          </div>
 
-         <div className="justify-self-center text-center py-4 grid gap-y-2">
-            <p className="text-sm md:text-xl font-medium text-clr-black">
-               Subtotal ({productsInCart.reduce((acc, product) => acc + product.quantity, 0)})
-               items:
-            </p>
-            <p className="text-sm md:text-2xl font-semibold text-clr-primary">${totalAmount}</p>
-            <button
-               // onClick={checkoutHandler}
-               type="button"
-               disabled={productsInCart.length === 0}
-               className="justify-self-center mt-4 rounded-full inline-block text-clr-primary text-base md:text-lg font-medium py-2 px-8 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
-            >
-               Place Order
-            </button>
+         <div className="grid gap-y-6 mt-6">
+            <div className="justify-self-center text-center grid gap-y-2">
+               <p className="text-sm md:text-xl font-medium text-clr-black">Tax Amount:</p>
+               <p className="text-sm md:text-2xl font-semibold text-clr-primary">${taxAmount}</p>
+            </div>
+
+            <div className="justify-self-center text-center grid gap-y-2">
+               <p className="text-sm md:text-xl font-medium text-clr-black">Shipping Amount:</p>
+               <p className="text-sm md:text-2xl font-semibold text-clr-primary">
+                  ${shippingAmount}
+               </p>
+            </div>
+
+            <div className="justify-self-center text-center pb-4 grid gap-y-2">
+               <p className="text-sm md:text-xl font-medium text-clr-black">
+                  Subtotal ({productsInCart.reduce((acc, product) => acc + product.quantity, 0)})
+                  items:
+               </p>
+               <p className="text-sm md:text-2xl font-semibold text-clr-primary">${totalAmount}</p>
+               <button
+                  onClick={checkoutHandler}
+                  type="button"
+                  disabled={productsInCart.length === 0}
+                  className="justify-self-center mt-4 rounded-full inline-block text-clr-primary text-base md:text-lg font-medium py-2 px-8 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
+               >
+                  Place Order
+               </button>
+            </div>
          </div>
       </Container>
    );

@@ -8,7 +8,9 @@ const ShoppingCartPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
 
-   const { productsInCart, totalAmount } = useSelector((state) => state.shoppingCart);
+   const { productsInCart, totalAmount, taxAmount, shippingAmount } = useSelector(
+      (state) => state.shoppingCart
+   );
 
    // Adding product to cart
    const addProductToShoppingCartHandler = (product, quantity) => {
@@ -89,6 +91,18 @@ const ShoppingCartPage = () => {
                   </div>
                </div>
             ))}
+
+            <div className="justify-self-center text-center grid gap-y-2">
+               <p className="text-sm md:text-xl font-medium text-clr-black">Tax Amount:</p>
+               <p className="text-sm md:text-2xl font-semibold text-clr-primary">${taxAmount}</p>
+            </div>
+
+            <div className="justify-self-center text-center grid gap-y-2">
+               <p className="text-sm md:text-xl font-medium text-clr-black">Shipping Amount:</p>
+               <p className="text-sm md:text-2xl font-semibold text-clr-primary">
+                  ${shippingAmount}
+               </p>
+            </div>
 
             <div className="justify-self-center text-center grid gap-y-2">
                <p className="text-sm md:text-xl font-medium text-clr-black">

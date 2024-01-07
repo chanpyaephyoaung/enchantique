@@ -1,5 +1,9 @@
 import { addTwoDecimals } from "./mathHelpers.js";
-import { MAX_PRICE_TO_INCLUDE_SHIPPING_PRICE, SHIPPING_PRICE } from "./constants.js";
+import {
+   MAX_PRICE_TO_INCLUDE_SHIPPING_PRICE,
+   SHIPPING_PRICE,
+   TAX_PERCENTAGE,
+} from "./constants.js";
 
 export const updateShoppingCartPricesState = (shoppingCartState) => {
    // Calculate total amount for all products in a cart
@@ -16,7 +20,9 @@ export const updateShoppingCartPricesState = (shoppingCartState) => {
    );
 
    // Calculate tax amount
-   shoppingCartState.taxAmount = addTwoDecimals(0.15 * shoppingCartState.totalRawProductPrice);
+   shoppingCartState.taxAmount = addTwoDecimals(
+      TAX_PERCENTAGE * shoppingCartState.totalRawProductPrice
+   );
 
    // Calculate total amount
    shoppingCartState.totalAmount = addTwoDecimals(

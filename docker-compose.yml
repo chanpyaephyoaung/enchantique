@@ -19,5 +19,7 @@ services:
          NODE_ENV: ${NODE_ENV}
          MONGOATLAS_URI: ${MONGOATLAS_URI}
          MONGOATLAS_URI_TEST: ${MONGOATLAS_URI_TEST}
+         JWT_TOKEN_SECRET: ${JWT_TOKEN_SECRET}
+         STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
       volumes:
          - ./backend:/app

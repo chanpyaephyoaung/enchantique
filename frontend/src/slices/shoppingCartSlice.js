@@ -32,7 +32,7 @@ const shoppingCartSlice = createSlice({
          );
          return updateShoppingCartPricesState(state);
       },
-      removeAllProductsFromCart: (state, action) => {
+      removeAllProductsFromCart: (state) => {
          state.productsInCart = [];
          return updateShoppingCartPricesState(state);
       },
@@ -40,12 +40,8 @@ const shoppingCartSlice = createSlice({
          state.userDeliveryAddress = action.payload.address;
          return updateShoppingCartPricesState(state);
       },
-      removeShoppingCartInfo: (state, action) => {
+      removeShoppingCartInfo: (state) => {
          state.productsInCart = [];
-         state.shippingAmount = 0;
-         state.taxAmount = 0;
-         state.totalAmount = 0;
-         state.totalRawProductPrice = 0;
          state.userDeliveryAddress = null;
          localStorage.removeItem("shoppingCart");
       },

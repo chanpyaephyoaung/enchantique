@@ -7,7 +7,7 @@ const orderSchema = mongoose.Schema(
          required: true,
          ref: "User",
       },
-      orderedItemsList: [
+      orderedProducts: [
          {
             name: { type: String, required: true },
             quantity: { type: Number, required: true },
@@ -45,16 +45,6 @@ const orderSchema = mongoose.Schema(
          type: Number,
          required: true,
          default: 0.0,
-      },
-      paymentType: {
-         type: String,
-         required: true,
-      },
-      paymentOutcome: {
-         id: { type: String },
-         status: { type: String },
-         updateTime: { type: String },
-         emailAddress: { type: String },
       },
       hasBeenPaid: {
          type: Boolean,
