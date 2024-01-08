@@ -16,7 +16,7 @@ const AdminProductDashboard = () => {
                to="/admin/products/list"
                className="text-sm md:text-lg font-light text-clr-primary hover:underline"
             >
-               Products
+               Product List
             </Link>
          </li>
       </ul>

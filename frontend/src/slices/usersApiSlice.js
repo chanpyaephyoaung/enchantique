@@ -1,5 +1,5 @@
 import { baseApiSlice } from "./baseApiSlice.js";
-import { USERS_BASE_URL } from "../helpers/constants.js";
+import { USERS_BASE_URL, ADMIN_USER_BASE_URL } from "../helpers/constants.js";
 
 export const usersApiSlice = baseApiSlice.injectEndpoints({
    endpoints: (builder) => ({
@@ -30,6 +30,12 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
             body: newProfileData,
          }),
       }),
+      getAllUsersByAdmin: builder.query({
+         query: () => ({
+            url: ADMIN_USER_BASE_URL,
+         }),
+         keepUnusedDataFor: 5,
+      }),
    }),
 });
 
@@ -38,4 +44,5 @@ export const {
    useSignOutMutation,
    useSignUpMutation,
    useUpdateUserAccProfileMutation,
+   useGetAllUsersByAdminQuery,
 } = usersApiSlice;

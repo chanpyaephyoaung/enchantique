@@ -14,6 +14,7 @@ const ProductsPage = () => {
       if (deleteConfirm) {
          try {
             await deleteSingleProduct({ productId });
+            console.log("Delete");
             refetch();
          } catch (err) {
             return;
