@@ -26,6 +26,7 @@ const ProductsPage = () => {
                   <th className="p-2 border-2 border-clr-black-faded">Category</th>
                   <th className="p-2 border-2 border-clr-black-faded">Stock Count</th>
                   <th className="p-2 border-2 border-clr-black-faded">&nbsp;</th>
+                  <th className="p-2 border-2 border-clr-black-faded">&nbsp;</th>
                </tr>
             </thead>
             <tbody>
@@ -41,6 +42,14 @@ const ProductsPage = () => {
                         <td className="p-2 border-2 border-clr-black-faded">{product.category}</td>
                         <td className="p-2 border-2 border-clr-black-faded">
                            {product.stocksCount <= 0 ? "Out of Stock" : "In Stock"}
+                        </td>
+                        <td className="p-2 border-2 border-clr-black-faded">
+                           <Link
+                              to={`/product/${product._id}`}
+                              className="mt-2 text-sm md:text-base font-light text-clr-primary hover:underline"
+                           >
+                              View
+                           </Link>
                         </td>
                         <td className="p-2 border-2 border-clr-black-faded">
                            <Link
@@ -60,7 +69,7 @@ const ProductsPage = () => {
 
    return (
       <Container type="page">
-         <h2 className="text-xl text-clr-black md:text-3xl font-medium mb-9">Orders</h2>
+         <h2 className="text-xl text-clr-black md:text-3xl font-medium mb-9">Products</h2>
          {contentMarkup}
       </Container>
    );

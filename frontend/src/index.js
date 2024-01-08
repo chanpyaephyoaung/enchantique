@@ -26,6 +26,8 @@ import UserProfilePage from "./screens/UserProfilePage.jsx";
 import UserProfileUpdatePage from "./screens/UserProfileUpdatePage.jsx";
 import OrdersPage from "./screens/admin/OrdersPage.jsx";
 import ProductsPage from "./screens/admin/ProductsPage.jsx";
+import AdminProductsPage from "./screens/admin/AdminProductsPage.jsx";
+import AdminCreateProductPage from "./screens/admin/AdminCreateProductPage.jsx";
 
 const router = createBrowserRouter(
    createRoutesFromElements(
@@ -47,7 +49,9 @@ const router = createBrowserRouter(
 
          <Route path="" element={<AdminProtectedComponent />}>
             <Route path="/admin/orders" element={<OrdersPage />} />
-            <Route path="/admin/products" element={<ProductsPage />} />
+            <Route path="/admin/products" element={<AdminProductsPage />} />
+            <Route path="/admin/products/list" element={<ProductsPage />} />
+            <Route path="/admin/products/new" element={<AdminCreateProductPage />} />
          </Route>
       </Route>
    )

@@ -32,13 +32,6 @@ const productSchema = new mongoose.Schema(
          type: String,
          required: true,
       },
-      reviews: [
-         {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: "ProductReview",
-         },
-      ],
       rating: {
          type: Number,
          required: true,
@@ -52,7 +45,7 @@ const productSchema = new mongoose.Schema(
       stocksCount: {
          type: Number,
          required: true,
-         default: 0,
+         default: 20,
       },
       createdDate: {
          type: Date,

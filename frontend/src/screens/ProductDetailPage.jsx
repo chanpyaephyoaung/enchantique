@@ -1,17 +1,18 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useGetSingleProductDetailsQuery } from "../slices/productsApiSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Container from "../components/UI/Container.jsx";
 import Rating from "../components/UI/Rating.jsx";
 import { generateSeriesOfNums } from "../helpers/mathHelpers.js";
 import { addProductToCart } from "../slices/shoppingCartSlice.js";
 
 const ProductDetailPage = () => {
-   const { productId } = useParams();
-
    const dispatch = useDispatch();
    const navigate = useNavigate();
+
+   const { userAccInfo } = useSelector((state) => state.authUser);
+   const { productId } = useParams();
 
    const [prodQuantity, setProdQuantity] = useState(1);
 
@@ -88,16 +89,17 @@ const ProductDetailPage = () => {
                      </select>
                   </div>
                )}
-
-               <button
-                  data-testid="addToCartBtn"
-                  onClick={addProductToCartHandler}
-                  type="button"
-                  disabled={currentProduct.stocksCount === 0}
-                  className="mt-4 rounded-full inline-block justify-self-start text-clr-primary text-base md:text-lg font-medium py-2 px-4 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
-               >
-                  Add to Cart
-               </button>
+               {!userAccInfo.isAdmin && (
+                  <button
+                     data-testid="addToCartBtn"
+                     onClick={addProductToCartHandler}
+                     type="button"
+                     disabled={currentProduct.stocksCount === 0}
+                     className="mt-4 rounded-full inline-block justify-self-start text-clr-primary text-base md:text-lg font-medium py-2 px-4 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
+                  >
+                     Add to Cart
+                  </button>
+               )}
             </div>
          </div>
       );
