@@ -1,5 +1,5 @@
 import { baseApiSlice } from "./baseApiSlice.js";
-import { ORDERS_BASE_URL } from "../helpers/constants.js";
+import { ORDERS_BASE_URL, ADMIN_ORDERS_BASE_URL } from "../helpers/constants.js";
 
 export const ordersApiSlice = baseApiSlice.injectEndpoints({
    endpoints: (builder) => ({
@@ -17,7 +17,7 @@ export const ordersApiSlice = baseApiSlice.injectEndpoints({
             body: orderedProducts,
          }),
       }),
-      getAllOrders: builder.query({
+      getAllOrdersByUser: builder.query({
          query: () => ({
             url: `${ORDERS_BASE_URL}/my-orders`,
          }),
@@ -36,13 +36,34 @@ export const ordersApiSlice = baseApiSlice.injectEndpoints({
             body: orderId,
          }),
       }),
+      getAllOrdersByAdmin: builder.query({
+         query: () => ({
+            url: ADMIN_ORDERS_BASE_URL,
+         }),
+         keepUnusedDataFor: 10,
+      }),
+      shipOrder: builder.mutation({
+         query: (orderId) => ({
+            url: `${ADMIN_ORDERS_BASE_URL}/${orderId}/shipped`,
+            method: "PUT",
+         }),
+      }),
+      deliverOrder: builder.mutation({
+         query: (orderId) => ({
+            url: `${ADMIN_ORDERS_BASE_URL}/${orderId}/delivered`,
+            method: "PUT",
+         }),
+      }),
    }),
 });
 
 export const {
    useCreateNewOrderByUserMutation,
    useMakeOrderPaymentMutation,
-   useGetAllOrdersQuery,
+   useGetAllOrdersByUserQuery,
    useGetSingleOrderByIdQuery,
    useCancelOrderMutation,
+   useGetAllOrdersByAdminQuery,
+   useShipOrderMutation,
+   useDeliverOrderMutation,
 } = ordersApiSlice;

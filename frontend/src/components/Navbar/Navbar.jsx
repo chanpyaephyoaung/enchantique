@@ -43,6 +43,7 @@ const Navbar = () => {
                               Enchantique
                            </Link>
                         </div>
+
                         <div className="hidden sm:ml-6 sm:block">
                            <div className="flex gap-x-3 items-center">
                               <SearchForm />

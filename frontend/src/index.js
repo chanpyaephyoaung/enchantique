@@ -18,11 +18,13 @@ import SignInPage from "./screens/SignInPage.jsx";
 import SignUpPage from "./screens/SignUpPage.jsx";
 import ShippingAddressPage from "./screens/ShippingAddressPage.jsx";
 import CheckoutPage from "./screens/CheckoutPage.jsx";
+import AdminProtectedComponent from "./components/UI/AdminProtectedComponent.jsx";
 import ProtectedComponent from "./components/UI/ProtectedComponent.jsx";
 import OrderPage from "./screens/OrderPage.jsx";
 import OrderCancelPage from "./screens/OrderCancelPage.jsx";
 import UserProfilePage from "./screens/UserProfilePage.jsx";
 import UserProfileUpdatePage from "./screens/UserProfileUpdatePage.jsx";
+import OrdersPage from "./screens/admin/OrdersPage.jsx";
 
 const router = createBrowserRouter(
    createRoutesFromElements(
@@ -40,6 +42,10 @@ const router = createBrowserRouter(
             <Route path="/shipping" element={<ShippingAddressPage />} />
             <Route path="/order/:orderId" element={<OrderPage />} />
             <Route path="/order/:orderId/cancel" element={<OrderCancelPage />} />
+         </Route>
+
+         <Route path="" element={<AdminProtectedComponent />}>
+            <Route path="/admin/orders" element={<OrdersPage />} />
          </Route>
       </Route>
    )

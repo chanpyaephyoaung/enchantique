@@ -31,10 +31,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/products", productRoutes);
-app.use("/api/users", userRoutes);
 app.use("/api/users/admin", adminUserRoutes);
-app.use("/api/orders", userOrderRoutes);
 app.use("/api/orders/admin", adminOrderRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/orders", userOrderRoutes);
 
 app.use(resourceNotFound);
 app.use(errorHandler);
