@@ -4,7 +4,6 @@ import { useGetAllOrdersByAdminQuery } from "../../slices/ordersApiSlice.js";
 
 const OrdersPage = () => {
    const { data: allOrders, error, isLoading } = useGetAllOrdersByAdminQuery();
-   console.log(allOrders);
 
    let contentMarkup = "";
 
@@ -23,6 +22,9 @@ const OrdersPage = () => {
                   <th className="p-2 border-2 border-clr-black-faded">Order Placed Date</th>
                   <th className="p-2 border-2 border-clr-black-faded">Buyer</th>
                   <th className="p-2 border-2 border-clr-black-faded">Total Amount</th>
+                  <th className="p-2 border-2 border-clr-black-faded">Paid</th>
+                  <th className="p-2 border-2 border-clr-black-faded">Shipped</th>
+                  <th className="p-2 border-2 border-clr-black-faded">Delivered</th>
                   <th className="p-2 border-2 border-clr-black-faded">Details</th>
                </tr>
             </thead>
@@ -37,6 +39,15 @@ const OrdersPage = () => {
                         <td className="p-2 border-2 border-clr-black-faded">{order.user.name}</td>
                         <td className="p-2 border-2 border-clr-black-faded">
                            ${order.totalAmount.toFixed(2)}
+                        </td>
+                        <td className="p-2 border-2 border-clr-black-faded">
+                           {order.hasBeenPaid ? "Yes" : "No"}
+                        </td>
+                        <td className="p-2 border-2 border-clr-black-faded">
+                           {order.hasBeenShipped ? "Yes" : "No"}
+                        </td>
+                        <td className="p-2 border-2 border-clr-black-faded">
+                           {order.hasBeenDelivered ? "Yes" : "No"}
                         </td>
                         <td className="p-2 border-2 border-clr-black-faded">
                            <Link

@@ -25,6 +25,7 @@ import OrderCancelPage from "./screens/OrderCancelPage.jsx";
 import UserProfilePage from "./screens/UserProfilePage.jsx";
 import UserProfileUpdatePage from "./screens/UserProfileUpdatePage.jsx";
 import OrdersPage from "./screens/admin/OrdersPage.jsx";
+import ProductsPage from "./screens/admin/ProductsPage.jsx";
 
 const router = createBrowserRouter(
    createRoutesFromElements(
@@ -46,6 +47,7 @@ const router = createBrowserRouter(
 
          <Route path="" element={<AdminProtectedComponent />}>
             <Route path="/admin/orders" element={<OrdersPage />} />
+            <Route path="/admin/products" element={<ProductsPage />} />
          </Route>
       </Route>
    )
