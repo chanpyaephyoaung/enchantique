@@ -23,6 +23,13 @@ export const ordersApiSlice = baseApiSlice.injectEndpoints({
          }),
          keepUnusedDataFor: 10,
       }),
+      cancelOrder: builder.mutation({
+         query: (orderId) => ({
+            url: `${ORDERS_BASE_URL}/${orderId}/cancel`,
+            method: "POST",
+            body: orderId,
+         }),
+      }),
    }),
 });
 
@@ -30,4 +37,5 @@ export const {
    useCreateNewOrderByUserMutation,
    useMakeOrderPaymentMutation,
    useGetSingleOrderByIdQuery,
+   useCancelOrderMutation,
 } = ordersApiSlice;

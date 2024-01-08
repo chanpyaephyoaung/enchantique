@@ -16,7 +16,9 @@ export const updateShoppingCartPricesState = (shoppingCartState) => {
 
    // Calculate shipping amount
    shoppingCartState.shippingAmount = addTwoDecimals(
-      shoppingCartState.productsInCart > MAX_PRICE_TO_INCLUDE_SHIPPING_PRICE ? 0 : SHIPPING_PRICE
+      shoppingCartState.totalRawProductPrice < MAX_PRICE_TO_INCLUDE_SHIPPING_PRICE
+         ? 0
+         : SHIPPING_PRICE
    );
 
    // Calculate tax amount

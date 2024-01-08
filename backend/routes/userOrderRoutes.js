@@ -5,6 +5,7 @@ import {
    setOrderToPaidByUser,
    getSingleOrderByIdByUser,
    checkoutOrderByUser,
+   cancelOrder,
 } from "../controllers/userOrdersController.js";
 import { protectRoutes } from "../middleware/authMiddleware.js";
 
@@ -15,5 +16,6 @@ router.get("/my-orders", protectRoutes, getAllOrdersByUser);
 router.get("/:orderId", protectRoutes, getSingleOrderByIdByUser);
 router.post("/pay", protectRoutes, checkoutOrderByUser);
 router.get("/:orderId/paid", protectRoutes, setOrderToPaidByUser);
+router.post("/:orderId/cancel", protectRoutes, cancelOrder);
 
 export default router;

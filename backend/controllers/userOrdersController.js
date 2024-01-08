@@ -103,12 +103,30 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
       mode: "payment",
       line_items: [...products, ...additionalPriceInfo],
       success_url: `http://localhost:3000/order/${orderId}`,
-      cancel_url: "http://localhost:3000/",
+      cancel_url: `http://localhost:3000/order/${orderId}/cancel`,
    });
 
    res.json({ url: session.url });
 });
 
+export const cancelOrder = asyncHandler(async (req, res) => {
+   const targetOrder = await Order.findById(req.params?.orderId);
+   if (targetOrder) {
+      await Order.deleteOne({ _id: targetOrder._id });
+      res.status(200).json({ message: "Order Canceled" });
+   } else {
+      res.status(404);
+      throw new Error("Order not found");
+   }
+});
+
 export const setOrderToPaidByUser = asyncHandler(async (req, res) => {
-   res.status(200).send("Order is paid.");
+   const targetOrder = await Order.findById(req.params.orderId);
+   if (targetOrder) {
+      await Order.deleteOne({ _id: targetOrder._id });
+      res.status(200).json({ message: "Order Canceled" });
+   } else {
+      res.status(404);
+      throw new Error("Product not found");
+   }
 });

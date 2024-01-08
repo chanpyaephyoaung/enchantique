@@ -20,6 +20,8 @@ import ShippingAddressPage from "./screens/ShippingAddressPage.jsx";
 import CheckoutPage from "./screens/CheckoutPage.jsx";
 import ProtectedComponent from "./components/UI/ProtectedComponent.jsx";
 import OrderPage from "./screens/OrderPage.jsx";
+import OrderCancelPage from "./screens/OrderCancelPage.jsx";
+import OrderSuccessPage from "./screens/OrderSuccessPage.jsx";
 
 const router = createBrowserRouter(
    createRoutesFromElements(
@@ -34,6 +36,7 @@ const router = createBrowserRouter(
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/shipping" element={<ShippingAddressPage />} />
             <Route path="/order/:orderId" element={<OrderPage />} />
+            <Route path="/order/:orderId/cancel" element={<OrderCancelPage />} />
          </Route>
       </Route>
    )

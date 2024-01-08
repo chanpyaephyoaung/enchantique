@@ -2,7 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/UI/Container.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { generateSeriesOfNums } from "../helpers/mathHelpers.js";
-import { addProductToCart, removeProductFromCart } from "../slices/shoppingCartSlice.js";
+import {
+   addProductToCart,
+   removeProductFromCart,
+   removeAllProductsFromCart,
+} from "../slices/shoppingCartSlice.js";
 import {
    useCreateNewOrderByUserMutation,
    useMakeOrderPaymentMutation,
@@ -54,6 +58,9 @@ const CheckoutPage = () => {
 
       // Open stripe pre-built checkout
       window.open(url, "_self");
+
+      // Remove all products from cart
+      dispatch(removeAllProductsFromCart());
    };
 
    return (

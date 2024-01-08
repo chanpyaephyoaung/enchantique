@@ -85,35 +85,46 @@ const Navbar = () => {
                </Container>
 
                <Disclosure.Panel className="sm:hidden">
-                  <div className="space-y-1 px-2 pb-3 pt-2">
-                     <Disclosure.Button
-                        as="a"
-                        className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
-                     >
-                        <span className="relative">
-                           <ShoppingCartIcon className="h-7 w-7 md:h-8 md:w-8" />
-                           <span className="flex justify-center leading-none items-center w-5 h-5 text-xs md:text-sm md:w-7 md:h-7 absolute -top-3 -right-3 bg-clr-primary text-clr-white rounded-full">
-                              1
+                  <div className="grid space-y-1 px-2 pb-3 pt-2">
+                     <Disclosure.Button as="button">
+                        <Link
+                           to="/shopping-cart"
+                           className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                        >
+                           <span className="relative">
+                              <ShoppingCartIcon className="h-7 w-7 md:h-8 md:w-8" />
+                              {productsInCart.length > 0 && (
+                                 <span className="flex justify-center leading-none items-center w-5 h-5 text-xs md:w-6 md:h-6 absolute -top-3 -right-3 bg-clr-primary text-clr-white rounded-full">
+                                    {productsInCart.reduce(
+                                       (acc, curProd) => acc + curProd.quantity,
+                                       0
+                                    )}
+                                 </span>
+                              )}
                            </span>
-                        </span>
-                        Cart
+                           Cart
+                        </Link>
                      </Disclosure.Button>
 
                      {userAccInfo ? (
                         <>
-                           <Disclosure.Button
-                              as="a"
-                              className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
-                           >
-                              <UserIcon className="h-7 w-7 md:h-8 md:w-8" />
-                              My Profile
+                           <Disclosure.Button as="button">
+                              <Link
+                                 to="/profile"
+                                 className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                              >
+                                 <UserIcon className="h-7 w-7 md:h-8 md:w-8" />
+                                 My Profile
+                              </Link>
                            </Disclosure.Button>
-                           <Disclosure.Button
-                              as="a"
-                              className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
-                           >
-                              <ArrowRightStartOnRectangleIcon className="h-7 w-7 md:h-8 md:w-8" />
-                              Sign out
+                           <Disclosure.Button as="button">
+                              <Link
+                                 to="/signout"
+                                 className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                              >
+                                 <ArrowRightStartOnRectangleIcon className="h-7 w-7 md:h-8 md:w-8" />
+                                 Sign out
+                              </Link>
                            </Disclosure.Button>
                         </>
                      ) : (

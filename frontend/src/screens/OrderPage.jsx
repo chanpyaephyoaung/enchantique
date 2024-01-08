@@ -125,7 +125,7 @@ const OrderPage = () => {
             Order ID - {orderId}
          </h2>
          <h2 className="text-sm md:text-lg font-medium text-clr-black mb-4">
-            Order placed on {new Date(orderInfo.createdAt).toLocaleString()}
+            Order placed on {new Date(orderInfo?.createdAt).toLocaleString()}
          </h2>
          {contentMarkup}
       </Container>
