@@ -6,7 +6,7 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const getAllOrdersByUser = asyncHandler(async (req, res) => {
-   const allOrders = await Order.find({ user: req.user_id });
+   const allOrders = await Order.find({ user: req.currentUser._id });
 
    res.status(200).json(allOrders);
 });
@@ -106,6 +106,12 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
       cancel_url: `http://localhost:3000/order/${orderId}/cancel`,
    });
 
+   const targetUserOrder = await Order.findById(orderId);
+   targetUserOrder.hasBeenPaid = true;
+   targetUserOrder.paymentMadeAt = Date.now();
+
+   await targetUserOrder.save();
+
    res.json({ url: session.url });
 });
 
@@ -122,11 +128,4 @@ export const cancelOrder = asyncHandler(async (req, res) => {
 
 export const setOrderToPaidByUser = asyncHandler(async (req, res) => {
    const targetOrder = await Order.findById(req.params.orderId);
-   if (targetOrder) {
-      await Order.deleteOne({ _id: targetOrder._id });
-      res.status(200).json({ message: "Order Canceled" });
-   } else {
-      res.status(404);
-      throw new Error("Product not found");
-   }
 });

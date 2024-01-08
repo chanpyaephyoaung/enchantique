@@ -9,7 +9,6 @@ const OrderPage = () => {
    console.log(userAccInfo);
 
    const { data: orderInfo, error, isLoading } = useGetSingleOrderByIdQuery(orderId);
-   console.log(orderInfo);
 
    let contentMarkup = "";
 

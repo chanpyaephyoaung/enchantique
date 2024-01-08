@@ -54,7 +54,10 @@ const CheckoutPage = () => {
       };
 
       const res = await createNewOrderByUser(order).unwrap();
-      const { url } = await makeOrderPayment({ ...order, orderId: res._id }).unwrap();
+      const { url } = await makeOrderPayment({
+         ...order,
+         orderId: res._id,
+      }).unwrap();
 
       // Open stripe pre-built checkout
       window.open(url, "_self");
@@ -74,7 +77,7 @@ const CheckoutPage = () => {
             <div className="w-full grid col-span-2 sm:col-span-3 self-start">
                {!userDeliveryAddress ? (
                   <p className="grid gap-y-2 text-sm md:text-lg font-normal text-clr-black">
-                     Please set your delivery address here.
+                     Please set your delivery address using the link below.
                      <Link
                         to="/shipping"
                         className="text-sm md:text-base font-light text-clr-primary hover:underline"
@@ -162,6 +165,15 @@ const CheckoutPage = () => {
          </div>
 
          <div className="grid gap-y-6 mt-6">
+            <div className="justify-self-center text-center grid gap-y-2">
+               <p className="text-sm md:text-xl font-medium text-clr-black">
+                  Total Products Price:
+               </p>
+               <p className="text-sm md:text-2xl font-semibold text-clr-primary">
+                  ${totalRawProductPrice}
+               </p>
+            </div>
+
             <div className="justify-self-center text-center grid gap-y-2">
                <p className="text-sm md:text-xl font-medium text-clr-black">Tax Amount:</p>
                <p className="text-sm md:text-2xl font-semibold text-clr-primary">${taxAmount}</p>

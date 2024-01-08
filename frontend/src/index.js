@@ -21,7 +21,8 @@ import CheckoutPage from "./screens/CheckoutPage.jsx";
 import ProtectedComponent from "./components/UI/ProtectedComponent.jsx";
 import OrderPage from "./screens/OrderPage.jsx";
 import OrderCancelPage from "./screens/OrderCancelPage.jsx";
-import OrderSuccessPage from "./screens/OrderSuccessPage.jsx";
+import UserProfilePage from "./screens/UserProfilePage.jsx";
+import UserProfileUpdatePage from "./screens/UserProfileUpdatePage.jsx";
 
 const router = createBrowserRouter(
    createRoutesFromElements(
@@ -33,6 +34,8 @@ const router = createBrowserRouter(
          <Route path="/signup" element={<SignUpPage />} />
 
          <Route path="" element={<ProtectedComponent />}>
+            <Route path="/account-profile" element={<UserProfilePage />} />
+            <Route path="/account-profile/update" element={<UserProfileUpdatePage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/shipping" element={<ShippingAddressPage />} />
             <Route path="/order/:orderId" element={<OrderPage />} />

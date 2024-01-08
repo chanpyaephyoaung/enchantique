@@ -103,13 +103,10 @@ const ShippingAddressPage = () => {
                </label>
                <button
                   type="submit"
-                  // disabled={isLoading}
                   className="text-sm py-3 px-5 md:text-base text-clr-primary font-medium border border-clr-primary rounded-lg hover:bg-clr-primary hover:text-clr-white focus:outline-none focus:border-clr-primary focus:ring-clr-primary focus:ring-1 transition duration-300 leading-none"
                >
                   Confirm
                </button>
-               {/* {isLoading && <h2>Loading...</h2>}
-               {error && <h2 className="text-clr-danger text-sm md:text-base">{error}</h2>} */}
             </form>
          </FormContainer>
       </Container>

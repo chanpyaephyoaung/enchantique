@@ -8,9 +8,8 @@ const ShoppingCartPage = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
 
-   const { productsInCart, totalAmount, taxAmount, shippingAmount } = useSelector(
-      (state) => state.shoppingCart
-   );
+   const { productsInCart, totalAmount, taxAmount, shippingAmount, totalRawProductPrice } =
+      useSelector((state) => state.shoppingCart);
 
    // Adding product to cart
    const addProductToShoppingCartHandler = (product, quantity) => {
@@ -91,6 +90,15 @@ const ShoppingCartPage = () => {
                   </div>
                </div>
             ))}
+
+            <div className="justify-self-center text-center grid gap-y-2">
+               <p className="text-sm md:text-xl font-medium text-clr-black">
+                  Total Products Price:
+               </p>
+               <p className="text-sm md:text-2xl font-semibold text-clr-primary">
+                  ${totalRawProductPrice}
+               </p>
+            </div>
 
             <div className="justify-self-center text-center grid gap-y-2">
                <p className="text-sm md:text-xl font-medium text-clr-black">Tax Amount:</p>
