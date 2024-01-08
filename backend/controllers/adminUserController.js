@@ -8,5 +8,13 @@ export const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 export const deleteSingleUserById = asyncHandler(async (req, res) => {
-   res.send("Delete user by id!");
+   const targetUser = await User.findById(req.body.userId);
+
+   if (!User) {
+      res.status(404);
+      throw new Error("Requested user not found.");
+   } else {
+      await User.deleteOne({ _id: targetUser._id });
+      res.status(204).json({ message: "User removed!" });
+   }
 });

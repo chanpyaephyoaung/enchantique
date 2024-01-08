@@ -1,9 +1,24 @@
 import Container from "../../components/UI/Container";
-import { useGetAllUsersByAdminQuery } from "../../slices/usersApiSlice.js";
+import {
+   useGetAllUsersByAdminQuery,
+   useDeleteSingleUserMutation,
+} from "../../slices/usersApiSlice.js";
 
 const UsersPage = () => {
-   const { data: allUsers, error, isLoading } = useGetAllUsersByAdminQuery();
-   console.log(allUsers);
+   const { data: allUsers, error, isLoading, refetch } = useGetAllUsersByAdminQuery();
+   const [deleteSingleUser, { isLoading: loadingDeleteUser }] = useDeleteSingleUserMutation();
+
+   const deleteUserHandler = async (userId) => {
+      const deleteConfirm = window.confirm("Do you really want to delete this user?");
+      if (deleteConfirm) {
+         try {
+            await deleteSingleUser({ userId });
+            refetch();
+         } catch (err) {
+            return;
+         }
+      }
+   };
 
    let contentMarkup = "";
 
@@ -39,7 +54,7 @@ const UsersPage = () => {
                         <td className="p-2 border-2 border-clr-black-faded">{user.telephoneNum}</td>
                         <td className="p-2 border-2 border-clr-black-faded">
                            <button
-                              // onClick={() => deleteProductHandler(product._id)}
+                              onClick={() => deleteUserHandler(user._id)}
                               className="text-sm md:text-base font-light text-clr-danger hover:underline"
                            >
                               Remove
@@ -57,6 +72,7 @@ const UsersPage = () => {
       <Container type="page">
          <h2 className="text-xl text-clr-black md:text-3xl font-medium mb-9">Products</h2>
          {contentMarkup}
+         {loadingDeleteUser && <h2 className="mt-4">Deleting. Please wait...</h2>}
       </Container>
    );
 };

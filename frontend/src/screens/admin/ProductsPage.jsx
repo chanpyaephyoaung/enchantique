@@ -7,14 +7,13 @@ import {
 
 const ProductsPage = () => {
    const { data: allProducts, error, isLoading, refetch } = useGetAllProductsQuery();
-   const [deleteSingleProduct, { isLoading: loadingDelete }] = useDeleteSingleProductMutation();
+   const [deleteSingleProduct, { isLoading: loadingDeleteUser }] = useDeleteSingleProductMutation();
 
    const deleteProductHandler = async (productId) => {
       const deleteConfirm = window.confirm("Do you really want to delete this product?");
       if (deleteConfirm) {
          try {
             await deleteSingleProduct({ productId });
-            console.log("Delete");
             refetch();
          } catch (err) {
             return;
@@ -87,7 +86,7 @@ const ProductsPage = () => {
       <Container type="page">
          <h2 className="text-xl text-clr-black md:text-3xl font-medium mb-9">Products</h2>
          {contentMarkup}
-         {loadingDelete && <h2>Deleting. Please wait...</h2>}
+         {loadingDeleteUser && <h2 className="mt-4">Deleting. Please wait...</h2>}
       </Container>
    );
 };

@@ -36,6 +36,13 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
          }),
          keepUnusedDataFor: 5,
       }),
+      deleteSingleUser: builder.mutation({
+         query: (userId) => ({
+            url: `${ADMIN_USER_BASE_URL}/${userId}`,
+            method: "DELETE",
+            body: userId,
+         }),
+      }),
    }),
 });
 
@@ -45,4 +52,5 @@ export const {
    useSignUpMutation,
    useUpdateUserAccProfileMutation,
    useGetAllUsersByAdminQuery,
+   useDeleteSingleUserMutation,
 } = usersApiSlice;
