@@ -37,3 +37,16 @@ export const createNewProduct = asyncHandler(async (req, res) => {
    const savedProduct = await newProduct.save();
    res.status(201).json(savedProduct);
 });
+
+// Delete an existing product
+export const deleteProduct = asyncHandler(async (req, res) => {
+   const targetProduct = await Product.findById(req.body.productId);
+
+   if (!targetProduct) {
+      res.status(404);
+      throw new Error("Requested product not found.");
+   } else {
+      await Product.deleteOne({ _id: targetProduct._id });
+      res.status(204).json({ message: "Product deleted!" });
+   }
+});

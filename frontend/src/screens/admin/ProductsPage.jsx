@@ -1,10 +1,25 @@
 import { Link } from "react-router-dom";
 import Container from "../../components/UI/Container";
-import { useGetAllProductsQuery } from "../../slices/productsApiSlice.js";
+import {
+   useGetAllProductsQuery,
+   useDeleteSingleProductMutation,
+} from "../../slices/productsApiSlice.js";
 
 const ProductsPage = () => {
-   const { data: allProducts, error, isLoading } = useGetAllProductsQuery();
-   console.log(allProducts);
+   const { data: allProducts, error, isLoading, refetch } = useGetAllProductsQuery();
+   const [deleteSingleProduct, { isLoading: loadingDelete }] = useDeleteSingleProductMutation();
+
+   const deleteProductHandler = async (productId) => {
+      const deleteConfirm = window.confirm("Do you really want to delete this product?");
+      if (deleteConfirm) {
+         try {
+            await deleteSingleProduct({ productId });
+            refetch();
+         } catch (err) {
+            return;
+         }
+      }
+   };
 
    let contentMarkup = "";
 
@@ -52,12 +67,12 @@ const ProductsPage = () => {
                            </Link>
                         </td>
                         <td className="p-2 border-2 border-clr-black-faded">
-                           <Link
-                              // to={`/order/${order._id}`}
-                              className="mt-2 text-sm md:text-base font-light text-clr-primary hover:underline"
+                           <button
+                              onClick={() => deleteProductHandler(product._id)}
+                              className="text-sm md:text-base font-light text-clr-danger hover:underline"
                            >
                               Remove
-                           </Link>
+                           </button>
                         </td>
                      </tr>
                   );
@@ -71,6 +86,7 @@ const ProductsPage = () => {
       <Container type="page">
          <h2 className="text-xl text-clr-black md:text-3xl font-medium mb-9">Products</h2>
          {contentMarkup}
+         {loadingDelete && <h2>Deleting. Please wait...</h2>}
       </Container>
    );
 };
