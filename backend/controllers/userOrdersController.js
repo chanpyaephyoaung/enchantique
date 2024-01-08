@@ -25,7 +25,7 @@ export const getSingleOrderByIdByUser = asyncHandler(async (req, res) => {
 export const createOrderByUser = asyncHandler(async (req, res) => {
    const {
       orderedProducts,
-      totalRawItemsPrice,
+      totalRawProductPrice,
       taxAmount,
       shippingAmount,
       totalAmount,
@@ -44,7 +44,7 @@ export const createOrderByUser = asyncHandler(async (req, res) => {
             };
          }),
          user: req.currentUser._id,
-         totalRawItemsPrice,
+         totalRawProductPrice,
          taxAmount,
          shippingAmount,
          totalAmount,
@@ -63,7 +63,7 @@ export const createOrderByUser = asyncHandler(async (req, res) => {
 });
 
 export const checkoutOrderByUser = asyncHandler(async (req, res) => {
-   const { orderedProducts, shippingAmount, taxAmount } = req.body;
+   const { orderedProducts, shippingAmount, taxAmount, orderId } = req.body;
    const additionalPriceInfo = [
       {
          price_data: {
@@ -86,7 +86,7 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
          quantity: 1,
       },
    ];
-   const products = req.body.orderedProducts.map((product) => {
+   const products = orderedProducts.map((product) => {
       return {
          price_data: {
             unit_amount: product.price * 100,
@@ -102,7 +102,7 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       line_items: [...products, ...additionalPriceInfo],
-      success_url: "http://localhost:3000/",
+      success_url: `http://localhost:3000/order/${orderId}`,
       cancel_url: "http://localhost:3000/",
    });
 

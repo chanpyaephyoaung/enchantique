@@ -10,14 +10,24 @@ export const ordersApiSlice = baseApiSlice.injectEndpoints({
             body: { ...newOrder },
          }),
       }),
-      makePayment: builder.mutation({
+      makeOrderPayment: builder.mutation({
          query: (orderedProducts) => ({
             url: `${ORDERS_BASE_URL}/pay`,
             method: "POST",
             body: orderedProducts,
          }),
       }),
+      getSingleOrderById: builder.query({
+         query: (orderId) => ({
+            url: `${ORDERS_BASE_URL}/${orderId}`,
+         }),
+         keepUnusedDataFor: 10,
+      }),
    }),
 });
 
-export const { useCreateNewOrderByUserMutation, useMakePaymentMutation } = ordersApiSlice;
+export const {
+   useCreateNewOrderByUserMutation,
+   useMakeOrderPaymentMutation,
+   useGetSingleOrderByIdQuery,
+} = ordersApiSlice;

@@ -5,7 +5,7 @@ import { generateSeriesOfNums } from "../helpers/mathHelpers.js";
 import { addProductToCart, removeProductFromCart } from "../slices/shoppingCartSlice.js";
 import {
    useCreateNewOrderByUserMutation,
-   useMakePaymentMutation,
+   useMakeOrderPaymentMutation,
 } from "../slices/ordersApiSlice.js";
 
 const CheckoutPage = () => {
@@ -22,7 +22,7 @@ const CheckoutPage = () => {
    } = useSelector((state) => state.shoppingCart);
 
    const [createNewOrderByUser] = useCreateNewOrderByUserMutation();
-   const [makePayment] = useMakePaymentMutation();
+   const [makeOrderPayment] = useMakeOrderPaymentMutation();
 
    // Adding product to cart
    const addProductToShoppingCartHandler = (product, quantity) => {
@@ -48,8 +48,11 @@ const CheckoutPage = () => {
          totalRawProductPrice,
          totalAmount,
       };
-      // const res = await createNewOrderByUser(order).unwrap();
-      const { url } = await makePayment(order).unwrap();
+
+      const res = await createNewOrderByUser(order).unwrap();
+      const { url } = await makeOrderPayment({ ...order, orderId: res._id }).unwrap();
+
+      // Open stripe pre-built checkout
       window.open(url, "_self");
    };
 
