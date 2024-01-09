@@ -12,6 +12,8 @@ const UserProfilePage = () => {
 
    if (isLoading) {
       contentMarkup = <h2 className="mt-8">Please wait...</h2>;
+   } else if (!myOrders) {
+      contentMarkup = <h2 className="text-clr-danger mt-8">No orders made yet.</h2>;
    } else if (error) {
       contentMarkup = (
          <h2 className="text-clr-danger mt-8">{error?.data?.errMessage || error.error}</h2>

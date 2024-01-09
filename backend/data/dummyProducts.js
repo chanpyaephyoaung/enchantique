@@ -7,8 +7,7 @@ const products = [
       image: "/images/stylus_pen.jpg",
       brandName: "Apple",
       category: "Electronics",
-      rating: 4,
-      reviewsCount: 10,
+      rating: 0,
       stocksCount: 5,
       createdDate: new Date(),
       source:
@@ -22,8 +21,7 @@ const products = [
       image: "/images/apple_headphones.jpg",
       brandName: "Apple",
       category: "Electronics",
-      rating: 4.5,
-      reviewsCount: 8,
+      rating: 0,
       stocksCount: 10,
       createdDate: new Date(),
       source:
@@ -37,8 +35,7 @@ const products = [
       image: "/images/ms_surface_pro_9.jpg",
       brandName: "Microsoft",
       category: "Electronics",
-      rating: 4.5,
-      reviewsCount: 50,
+      rating: 0,
       stocksCount: 15,
       createdDate: new Date(),
       source:
@@ -52,8 +49,7 @@ const products = [
       image: "/images/xbox_wireless_controller.jpg",
       brandName: "Microsoft",
       category: "Electronics",
-      rating: 5,
-      reviewsCount: 65,
+      rating: 0,
       stocksCount: 3,
       createdDate: new Date(),
       source:
@@ -67,8 +63,7 @@ const products = [
       image: "/images/webcam.jpg",
       brandName: "EMEET",
       category: "Electronics",
-      rating: 4.5,
-      reviewsCount: 15,
+      rating: 0,
       stocksCount: 18,
       createdDate: new Date(),
       source:
@@ -82,8 +77,7 @@ const products = [
       image: "/images/sony_headphone.jpg",
       brandName: "Sony",
       category: "Electronics",
-      rating: 4,
-      reviewsCount: 5,
+      rating: 0,
       stocksCount: 0,
       createdDate: new Date(),
       source:

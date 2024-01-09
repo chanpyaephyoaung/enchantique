@@ -15,11 +15,18 @@ export const productsApiSlice = baseApiSlice.injectEndpoints({
          }),
          keepUnusedDataFor: 10,
       }),
-      createNewProduct: builder.mutation({
+      giveProductRatingByUser: builder.mutation({
          query: (data) => ({
-            url: `${PRODUCTS_BASE_URL}/new`,
+            url: `${PRODUCTS_BASE_URL}/${data.productId}/rate`,
             method: "POST",
             body: data,
+         }),
+      }),
+      createNewProduct: builder.mutation({
+         query: (prodData) => ({
+            url: `${PRODUCTS_BASE_URL}/new`,
+            method: "POST",
+            body: prodData,
          }),
       }),
       deleteSingleProduct: builder.mutation({
@@ -37,4 +44,5 @@ export const {
    useGetSingleProductDetailsQuery,
    useCreateNewProductMutation,
    useDeleteSingleProductMutation,
+   useGiveProductRatingByUserMutation,
 } = productsApiSlice;

@@ -37,11 +37,13 @@ const productSchema = new mongoose.Schema(
          required: true,
          default: 0,
       },
-      reviewsCount: {
-         type: Number,
-         required: true,
-         default: 0,
-      },
+      ratings: [
+         {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: "ProductRating",
+         },
+      ],
       stocksCount: {
          type: Number,
          required: true,

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { useGetSingleProductDetailsQuery } from "../slices/productsApiSlice.js";
+import {
+   useGetSingleProductDetailsQuery,
+   useGiveProductRatingByUserMutation,
+} from "../slices/productsApiSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "../components/UI/Container.jsx";
 import Rating from "../components/UI/Rating.jsx";
@@ -15,22 +18,47 @@ const ProductDetailPage = () => {
    const { productId } = useParams();
 
    const [prodQuantity, setProdQuantity] = useState(1);
+   const [prodRating, setProdRating] = useState(0);
+   const [err, setErr] = useState("");
 
-   const { data: currentProduct, error, isLoading } = useGetSingleProductDetailsQuery(productId);
+   const {
+      data: currentProduct,
+      error: fetchCurProdError,
+      isLoading,
+      refetch,
+   } = useGetSingleProductDetailsQuery(productId);
+
+   const [giveProductRatingByUser, { error: ratingError, isLoading: loadingRating }] =
+      useGiveProductRatingByUserMutation();
 
    const addProductToCartHandler = () => {
       dispatch(addProductToCart({ ...currentProduct, quantity: prodQuantity }));
       navigate("/shopping-cart");
    };
 
+   const submitRatingHandler = async (e) => {
+      e.preventDefault();
+      if (!prodRating) return;
+      try {
+         const data = {
+            productId,
+            prodRating,
+         };
+         console.log(productId, prodRating, data);
+         await giveProductRatingByUser(data);
+         refetch();
+      } catch (err) {
+         setErr(err?.data?.errMessage || err.error);
+      }
+   };
+
    let contentMarkup = "";
 
    if (isLoading) {
       contentMarkup = <h2 className="mt-8">Please wait...</h2>;
-   } else if (error) {
-      contentMarkup = (
-         <h2 className="text-clr-danger mt-8">{error?.data?.errMessage || error.error}</h2>
-      );
+   } else if (fetchCurProdError) {
+      setErr(fetchCurProdError?.data?.errMessage || fetchCurProdError.error);
+      contentMarkup = <h2 className="text-clr-danger mt-8">{err}</h2>;
    } else {
       contentMarkup = (
          <div className="grid lg:grid-cols-2 py-8 gap-6">
@@ -89,16 +117,59 @@ const ProductDetailPage = () => {
                      </select>
                   </div>
                )}
-               {!userAccInfo.isAdmin && (
-                  <button
-                     data-testid="addToCartBtn"
-                     onClick={addProductToCartHandler}
-                     type="button"
-                     disabled={currentProduct.stocksCount === 0}
-                     className="mt-4 rounded-full inline-block justify-self-start text-clr-primary text-base md:text-lg font-medium py-2 px-4 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
-                  >
-                     Add to Cart
-                  </button>
+               {!userAccInfo?.isAdmin && (
+                  <>
+                     <button
+                        data-testid="addToCartBtn"
+                        onClick={addProductToCartHandler}
+                        type="button"
+                        disabled={currentProduct.stocksCount === 0}
+                        className="mt-4 rounded-full inline-block justify-self-start text-clr-primary text-base md:text-lg font-medium py-2 px-4 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
+                     >
+                        Add to Cart
+                     </button>
+                  </>
+               )}
+
+               {userAccInfo && !userAccInfo.isAdmin && (
+                  <>
+                     <div className="mt-3 w-full h-[0.5px] bg-clr-gray">&nbsp;</div>
+
+                     <form onSubmit={submitRatingHandler}>
+                        <div className="grid gap-y-2">
+                           <p className="text-sm md:text-base font-medium">Give Rating</p>
+                           <select
+                              className="justify-self-start p-2 border border-clr-black-faded"
+                              name="quantity"
+                              id="quantity"
+                              value={prodRating}
+                              onChange={(e) => setProdRating(+e.target.value)}
+                           >
+                              <option value="">Select...</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                           </select>
+                        </div>
+
+                        <button
+                           type="submit"
+                           className="mt-4 rounded-full inline-block justify-self-start text-clr-primary text-base md:text-lg font-medium py-2 px-4 border disabled:bg-clr-black-faded disabled:cursor-not-allowed disabled:text-clr-gray disabled:border-clr-gray border-clr-primary hover:bg-clr-primary hover:text-white transition-all"
+                        >
+                           Submit
+                        </button>
+                        {loadingRating && (
+                           <h2 className="mt-2 text-clr-black">Saving your rating...</h2>
+                        )}
+                        {ratingError && (
+                           <h2 className="mt-2 text-clr-danger">
+                              {ratingError?.data?.errMessage || ratingError.error}
+                           </h2>
+                        )}
+                     </form>
+                  </>
                )}
             </div>
          </div>

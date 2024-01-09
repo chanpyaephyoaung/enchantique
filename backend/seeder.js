@@ -7,7 +7,7 @@ import products from "./data/dummyProducts.js";
 
 import Product from "./dataModels/productModel.js";
 import User from "./dataModels/userModel.js";
-import ProductReview from "./dataModels/productReviewModel.js";
+import ProductRating from "./dataModels/productRatingModel.js";
 import Order from "./dataModels/orderModel.js";
 
 dotenv.config();
@@ -18,7 +18,7 @@ export const seedDummyData = async () => {
    try {
       await Product.deleteMany();
       await User.deleteMany();
-      await ProductReview.deleteMany();
+      await ProductRating.deleteMany();
       await Order.deleteMany();
 
       const createdDumUsers = await User.insertMany(users);
@@ -45,7 +45,7 @@ const removeDummyData = async () => {
    try {
       await Product.deleteMany();
       await User.deleteMany();
-      await ProductReview.deleteMany();
+      await ProductRating.deleteMany();
       await Order.deleteMany();
 
       console.log("Dummy Data Successfully Removed!");
