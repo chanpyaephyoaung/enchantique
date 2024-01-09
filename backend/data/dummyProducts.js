@@ -9,7 +9,6 @@ const products = [
       category: "Electronics",
       rating: 0,
       stocksCount: 5,
-      createdDate: new Date(),
       source:
          "https://www.amazon.com/Stylus-Charging-Rejection-Sensitivity-2018-2022/dp/B0BW8LQKL4/ref=sr_1_5?crid=1UAZ3NFTLWOJL&keywords=apple&qid=1703013672&s=electronics&sprefix=apple%2Celectronics-intl-ship%2C179&sr=1-5",
    },
@@ -23,7 +22,6 @@ const products = [
       category: "Electronics",
       rating: 0,
       stocksCount: 10,
-      createdDate: new Date(),
       source:
          "https://www.amazon.com/Headphones-Microphone-Earphones-Compatible-3-5mm/dp/B0CMHW5TMK/ref=sr_1_23?crid=1UAZ3NFTLWOJL&keywords=apple&qid=1703013672&s=electronics&sprefix=apple%2Celectronics-intl-ship%2C179&sr=1-23&th=1",
    },
@@ -37,7 +35,6 @@ const products = [
       category: "Electronics",
       rating: 0,
       stocksCount: 15,
-      createdDate: new Date(),
       source:
          "https://www.amazon.com/Microsoft-Lightweight-Processor-Multi-Tasking-Platinum/dp/B0B9Q9S733/ref=sr_1_4?crid=A87KXWLXG79X&keywords=microsoft&qid=1703013793&sprefix=microsoft%2Caps%2C169&sr=8-4&th=1",
    },
@@ -51,7 +48,6 @@ const products = [
       category: "Electronics",
       rating: 0,
       stocksCount: 3,
-      createdDate: new Date(),
       source:
          "https://www.amazon.com/Microsoft-4N6-00001-Controller-Cable-Windows/dp/B01LPNKGGI/ref=sr_1_20?crid=A87KXWLXG79X&keywords=microsoft&qid=1703013915&sprefix=microsoft%2Caps%2C169&sr=8-20",
    },
@@ -65,7 +61,6 @@ const products = [
       category: "Electronics",
       rating: 0,
       stocksCount: 18,
-      createdDate: new Date(),
       source:
          "https://www.amazon.com/1080P-Webcam-Microphone-Electronic-Noise-Canceling/dp/B09KCJ36FS/ref=sr_1_71_sspa?crid=2NHZ4XK1OYD9G&keywords=microsoft&qid=1703014159&sprefix=microsoft%2Caps%2C176&sr=8-71-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&th=1",
    },
@@ -79,7 +74,6 @@ const products = [
       category: "Electronics",
       rating: 0,
       stocksCount: 0,
-      createdDate: new Date(),
       source:
          "https://www.amazon.com/Sony-WH-1000XM5-Headphones-Canceling-Hands-Free-Black/dp/B09XS7JWHH",
    },

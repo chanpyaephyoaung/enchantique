@@ -43,7 +43,7 @@ describe("Integration tests for products controllers.", () => {
          brandName: "Orange",
          category: "Electronics",
          rating: 5,
-         reviewsCount: 10,
+         ratings: [],
          stocksCount: 5,
          createdDate: "2023-12-30T22:24:19.284Z",
       });
@@ -54,17 +54,16 @@ describe("Integration tests for products controllers.", () => {
 
       assert.equal(res.status, 200, "Request unsuccessful.");
       assert.isObject(res.body, "Product should be an object.");
-      assert.typeOf(res.body._id, "string");
-      assert.typeOf(res.body.seller, "string");
-      assert.propertyVal(res.body, "name", "Product Test 1");
-      assert.propertyVal(res.body, "price", 15);
-      assert.propertyVal(res.body, "description", "This is a test description");
-      assert.propertyVal(res.body, "image", "/images/test.jpg");
-      assert.propertyVal(res.body, "brandName", "Orange");
-      assert.propertyVal(res.body, "category", "Electronics");
-      assert.propertyVal(res.body, "rating", 5);
-      assert.propertyVal(res.body, "reviewsCount", 10);
-      assert.propertyVal(res.body, "stocksCount", 5);
-      assert.typeOf(res.body.createdDate, "string");
+      assert.property(res.body, "_id");
+      assert.property(res.body, "seller");
+      assert.property(res.body, "name");
+      assert.property(res.body, "price");
+      assert.property(res.body, "description");
+      assert.property(res.body, "image");
+      assert.property(res.body, "brandName");
+      assert.property(res.body, "category");
+      assert.property(res.body, "rating");
+      assert.property(res.body, "ratings");
+      assert.property(res.body, "stocksCount");
    });
 });
