@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import { createServer } from "node:http";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDatabase from "./config/database.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -8,6 +10,7 @@ import adminUserRoutes from "./routes/adminUserRoutes.js";
 import userOrderRoutes from "./routes/userOrderRoutes.js";
 import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 import { resourceNotFound, errorHandler } from "./middleware/errorMiddleware.js";
+import { Server } from "socket.io";
 
 dotenv.config();
 
@@ -18,6 +21,14 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 const app = express();
+const server = createServer(app);
+
+app.use(cors());
+const io = new Server(server, {
+   cors: {
+      origin: "http://localhost:3000",
+   },
+});
 
 // Body parser
 app.use(express.json());
@@ -39,8 +50,50 @@ app.use("/api/orders", userOrderRoutes);
 app.use(resourceNotFound);
 app.use(errorHandler);
 
+let onlineUsersList = [];
+
+const addNewOnlineUser = (userId, socketId) => {
+   if (!onlineUsersList.some((user) => user.userId === userId)) {
+      onlineUsersList.push({ userId, socketId });
+   }
+};
+
+const removeOnlineUser = (socketId) => {
+   onlineUsersList = onlineUsersList.filter((user) => user.socketId !== socketId);
+};
+
+const getUser = (userId) => {
+   return onlineUsersList.find((user) => user.userId === userId);
+};
+
+io.on("connection", async (socket) => {
+   console.log("a user connected!", socket.id);
+   socket.on("newUser", (userId) => {
+      addNewOnlineUser(userId, socket.id);
+      console.log(onlineUsersList);
+   });
+
+   socket.on("sendShipProductNoti", ({ buyerId }) => {
+      const buyer = getUser(buyerId);
+      console.log("Buyer", buyer, "BuyerId: ", buyerId);
+      io.to(buyer.socketId).emit("getShipProductNoti", { message: "Your Order has been shipped!" });
+   });
+
+   socket.on("sendDeliverProductNoti", ({ buyerId }) => {
+      const buyer = getUser(buyerId);
+      console.log("Buyer", buyer, "BuyerId: ", buyerId);
+      io.to(buyer.socketId).emit("getDeliverProductNoti", {
+         message: "Your Order has been delivered!",
+      });
+   });
+
+   socket.on("disconnect", () => {
+      removeOnlineUser(socket.id);
+   });
+});
+
 if (process.env.NODE_ENV !== "test") {
-   app.listen(port, () => console.log(`Server running on port: ${port}`));
+   server.listen(port, () => console.log(`Server running on port: ${port}`));
 }
 
 export default app;

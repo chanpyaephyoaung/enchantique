@@ -53,7 +53,7 @@ const products = [
    },
    {
       name: "1080P Webcam EMEET",
-      price: 19.99,
+      price: 22.0,
       description:
          "nnovative and Fashion Privacy Protection - EMEET C950 web camera comes with physical privacy cover slide to block immoral and unlawful shootings. Align to C950 webcam, press firmly for seconds, pull right or left, the privacy protection will be functioned. The privacy cover features a fashionable design which accords with the beautiful aesthetic of C950 device.",
       image: "/images/webcam.jpg",

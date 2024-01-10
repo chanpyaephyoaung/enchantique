@@ -12,7 +12,10 @@ export const getAllOrdersByUser = asyncHandler(async (req, res) => {
 });
 
 export const getSingleOrderByIdByUser = asyncHandler(async (req, res) => {
-   const targetUserOrder = await Order.findById(req.params.orderId).populate("user", "email");
+   const targetUserOrder = await Order.findById(req.params.orderId).populate(
+      "user",
+      "email name telephoneNum"
+   );
 
    if (!targetUserOrder) {
       res.status(404);
@@ -67,7 +70,7 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
    const additionalPriceInfo = [
       {
          price_data: {
-            unit_amount: shippingAmount * 100,
+            unit_amount: Math.round(shippingAmount * 100),
             currency: "usd",
             product_data: {
                name: "Shipping Price",
@@ -77,7 +80,7 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
       },
       {
          price_data: {
-            unit_amount: taxAmount * 100,
+            unit_amount: Math.round(taxAmount * 100),
             currency: "usd",
             product_data: {
                name: "Tax",
@@ -89,7 +92,7 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
    const products = orderedProducts.map((product) => {
       return {
          price_data: {
-            unit_amount: product.price * 100,
+            unit_amount: Math.round(product.price * 100),
             currency: "usd",
             product_data: {
                name: product.name,
@@ -98,6 +101,7 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
          quantity: product.quantity,
       };
    });
+   console.log(req.body);
    const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -124,8 +128,4 @@ export const cancelOrder = asyncHandler(async (req, res) => {
       res.status(404);
       throw new Error("Order not found");
    }
-});
-
-export const setOrderToPaidByUser = asyncHandler(async (req, res) => {
-   const targetOrder = await Order.findById(req.params.orderId);
 });

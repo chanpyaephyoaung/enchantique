@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useOutletContext, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Container from "../components/UI/Container";
 import {
@@ -8,10 +8,14 @@ import {
 } from "../slices/ordersApiSlice.js";
 
 const OrderPage = () => {
+   const socket = useOutletContext();
+   console.log("Socket From Order Page: ", socket);
    const { orderId } = useParams();
    const { userAccInfo } = useSelector((state) => state.authUser);
 
    const { data: orderInfo, error, isLoading, refetch } = useGetSingleOrderByIdQuery(orderId);
+
+   console.log(orderInfo);
 
    const [shipOrder, { isLoading: loadingShipping }] = useShipOrderMutation();
    const [deliverOrder, { isLoading: loadingDelivery }] = useDeliverOrderMutation();
@@ -20,6 +24,7 @@ const OrderPage = () => {
       try {
          await shipOrder(orderId);
          refetch();
+         socket.emit("sendShipProductNoti", { buyerId: orderInfo.user._id.toString() });
       } catch (err) {
          return;
       }
@@ -29,6 +34,7 @@ const OrderPage = () => {
       try {
          await deliverOrder(orderId);
          refetch();
+         socket.emit("sendDeliverProductNoti", { buyerId: orderInfo.user._id.toString() });
       } catch (err) {
          return;
       }
@@ -155,13 +161,13 @@ const OrderPage = () => {
             <div className="mt-8 grid gap-y-2">
                <h2 className="text-sm md:text-xl font-medium text-clr-primary">Buyer Info</h2>
                <p className="text-sm md:text-lg font-normal text-clr-black">
-                  Name: {userAccInfo.name}
+                  Name: {orderInfo.user.name}
                </p>
                <p className="text-sm md:text-lg font-normal text-clr-black">
-                  Email: {userAccInfo.email}
+                  Email: {orderInfo.user.email}
                </p>
                <p className="text-sm md:text-lg font-normal text-clr-black">
-                  Telephone: {userAccInfo.telephoneNum}
+                  Telephone: {orderInfo.user.telephoneNum}
                </p>
             </div>
 

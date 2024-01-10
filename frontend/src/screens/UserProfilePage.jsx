@@ -26,6 +26,8 @@ const UserProfilePage = () => {
                   <th className="p-2 border-2 border-clr-black-faded">ID</th>
                   <th className="p-2 border-2 border-clr-black-faded">Order Placed Date</th>
                   <th className="p-2 border-2 border-clr-black-faded">Total Amount</th>
+                  <th className="p-2 border-2 border-clr-black-faded">Shipping Date</th>
+                  <th className="p-2 border-2 border-clr-black-faded">Delivery Date</th>
                   <th className="p-2 border-2 border-clr-black-faded">Details</th>
                </tr>
             </thead>
@@ -39,6 +41,12 @@ const UserProfilePage = () => {
                         </td>
                         <td className="p-2 border-2 border-clr-black-faded">
                            ${order.totalAmount.toFixed(2)}
+                        </td>
+                        <td className="p-2 border-2 border-clr-black-faded">
+                           {new Date(order?.shippingDate).toLocaleString()}
+                        </td>
+                        <td className="p-2 border-2 border-clr-black-faded">
+                           {new Date(order?.deliveryDate).toLocaleString()}
                         </td>
                         <td className="p-2 border-2 border-clr-black-faded">
                            <Link

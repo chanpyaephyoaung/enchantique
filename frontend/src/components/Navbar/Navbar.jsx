@@ -12,9 +12,11 @@ import Container from "../UI/Container.jsx";
 import SearchForm from "../Forms/SearchForm.jsx";
 import UserAccountDropdown from "./UserAccountDropdown.jsx";
 
-const Navbar = () => {
+const Navbar = ({ socket }) => {
    const { userAccInfo } = useSelector((state) => state.authUser);
    const { productsInCart } = useSelector((state) => state.shoppingCart);
+
+   console.log("Socket From Navbar: ", socket);
 
    return (
       <Disclosure as="nav" className="bg-clr-bg">
@@ -129,12 +131,14 @@ const Navbar = () => {
                            </Disclosure.Button>
                         </>
                      ) : (
-                        <Disclosure.Button
-                           as="a"
-                           className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
-                        >
-                           <UserIcon className="h-7 w-7 md:h-8 md:w-8" />
-                           Sign In
+                        <Disclosure.Button as="button">
+                           <Link
+                              to="/signin"
+                              className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                           >
+                              <UserIcon className="h-7 w-7 md:h-8 md:w-8" />
+                              Sign In
+                           </Link>
                         </Disclosure.Button>
                      )}
 
