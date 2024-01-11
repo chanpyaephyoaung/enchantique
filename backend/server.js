@@ -23,7 +23,10 @@ if (process.env.NODE_ENV !== "test") {
 const app = express();
 const server = createServer(app);
 
+// Cors
 app.use(cors());
+
+// Socket IO
 const io = new Server(server, {
    cors: {
       origin: "http://localhost:3000",
@@ -76,14 +79,22 @@ io.on("connection", async (socket) => {
    socket.on("sendShipProductNoti", ({ buyerId }) => {
       const buyer = getUser(buyerId);
       console.log("Buyer", buyer, "BuyerId: ", buyerId);
-      io.to(buyer.socketId).emit("getShipProductNoti", { message: "Your Order has been shipped!" });
+      socket
+         .to(buyer.socketId)
+         .emit("getShipProductNoti", { message: "Your Order has been shipped!" });
    });
 
    socket.on("sendDeliverProductNoti", ({ buyerId }) => {
       const buyer = getUser(buyerId);
       console.log("Buyer", buyer, "BuyerId: ", buyerId);
-      io.to(buyer.socketId).emit("getDeliverProductNoti", {
+      socket.to(buyer.socketId).emit("getDeliverProductNoti", {
          message: "Your Order has been delivered!",
+      });
+   });
+
+   socket.on("sendCreateNewProductNoti", () => {
+      socket.broadcast.emit("getCreateNewProductNoti", {
+         message: "A new product has been added to the store!",
       });
    });
 

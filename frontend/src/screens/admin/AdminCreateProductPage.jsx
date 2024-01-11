@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import FormContainer from "../../components/UI/FormContainer.jsx";
-import { useDispatch, useSelector } from "react-redux";
 import Container from "../../components/UI/Container.jsx";
 import { useCreateNewProductMutation } from "../../slices/productsApiSlice.js";
 
 const AdminCreateProductPage = () => {
-   const dispatch = useDispatch();
+   const socket = useOutletContext();
+
    const navigate = useNavigate();
 
    const [createNewProduct, { isLoading }] = useCreateNewProductMutation();
@@ -41,6 +41,7 @@ const AdminCreateProductPage = () => {
                category: prodCategory,
             };
             await createNewProduct(newProduct);
+            socket.emit("sendCreateNewProductNoti");
             navigate("/admin/products/list");
          } catch (err) {
             setError(err?.data?.errMessage || err.error);

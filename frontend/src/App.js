@@ -27,6 +27,10 @@ const App = () => {
             toast.success(data.message);
          });
 
+         socket.on("getCreateNewProductNoti", (data) => {
+            toast.success(data.message);
+         });
+
          console.log("Socket from App.js: ", socket);
       }
    }, [userAccInfo?._id]);
