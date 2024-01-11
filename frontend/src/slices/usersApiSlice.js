@@ -34,13 +34,26 @@ export const usersApiSlice = baseApiSlice.injectEndpoints({
          query: () => ({
             url: ADMIN_USER_BASE_URL,
          }),
-         keepUnusedDataFor: 5,
+         keepUnusedDataFor: 10,
       }),
       deleteSingleUser: builder.mutation({
          query: (userId) => ({
             url: `${ADMIN_USER_BASE_URL}/${userId}`,
             method: "DELETE",
             body: userId,
+         }),
+      }),
+      getAllUsersNotifications: builder.query({
+         query: (userId) => ({
+            url: `${USERS_BASE_URL}/${userId}/notifications`,
+         }),
+         keepUnusedDataFor: 10,
+      }),
+      createNewNoti: builder.mutation({
+         query: (notiData) => ({
+            url: `${USERS_BASE_URL}/notifications/new`,
+            method: "POST",
+            body: notiData,
          }),
       }),
    }),
@@ -53,4 +66,6 @@ export const {
    useUpdateUserAccProfileMutation,
    useGetAllUsersByAdminQuery,
    useDeleteSingleUserMutation,
+   useGetAllUsersNotificationsQuery,
+   useCreateNewNotiMutation,
 } = usersApiSlice;

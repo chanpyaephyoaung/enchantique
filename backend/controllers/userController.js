@@ -1,6 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../dataModels/userModel.js";
 import generateJwtToken from "../helpers/generateJwtToken..js";
+import UserNotification from "../dataModels/userNotificationModel.js";
 
 export const signInUser = asyncHandler(async (req, res) => {
    const { email, password } = req.body;
@@ -109,4 +110,24 @@ export const updateUserAccProfile = asyncHandler(async (req, res) => {
          telephoneNum: updatedCurrentUser.telephoneNum,
       });
    }
+});
+
+// Retrieve all user notifications from the database
+export const getAllUserNotifications = asyncHandler(async (req, res) => {
+   const allUserNotifications = await UserNotification.find({ user: req.params.userId });
+   res.status(200).json(allUserNotifications);
+});
+
+// Retrieve all user notifications from the database
+export const createNewNotification = asyncHandler(async (req, res) => {
+   const { user, notificationMessage, payload } = req.body;
+
+   const newNoti = new UserNotification({
+      user,
+      notificationMessage,
+      payload,
+   });
+
+   const savedNoti = await newNoti.save();
+   res.status(201).json(savedNoti);
 });

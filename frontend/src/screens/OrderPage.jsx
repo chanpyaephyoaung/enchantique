@@ -24,7 +24,10 @@ const OrderPage = () => {
       try {
          await shipOrder(orderId);
          refetch();
-         socket.emit("sendShipProductNoti", { buyerId: orderInfo.user._id.toString() });
+         socket.emit("sendShipOrderNoti", {
+            buyerId: orderInfo.user._id.toString(),
+            orderId: orderInfo._id,
+         });
       } catch (err) {
          return;
       }
@@ -34,7 +37,10 @@ const OrderPage = () => {
       try {
          await deliverOrder(orderId);
          refetch();
-         socket.emit("sendDeliverProductNoti", { buyerId: orderInfo.user._id.toString() });
+         socket.emit("sendDeliverOrderNoti", {
+            buyerId: orderInfo.user._id.toString(),
+            orderId: orderInfo._id,
+         });
       } catch (err) {
          return;
       }

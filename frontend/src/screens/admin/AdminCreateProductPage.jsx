@@ -40,8 +40,10 @@ const AdminCreateProductPage = () => {
                brandName: prodBrandName,
                category: prodCategory,
             };
-            await createNewProduct(newProduct);
-            socket.emit("sendCreateNewProductNoti");
+            const savedProd = await createNewProduct(newProduct).unwrap();
+            socket.emit("sendCreateNewProductNoti", {
+               productId: savedProd._id,
+            });
             navigate("/admin/products/list");
          } catch (err) {
             setError(err?.data?.errMessage || err.error);

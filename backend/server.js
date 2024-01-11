@@ -76,25 +76,28 @@ io.on("connection", async (socket) => {
       console.log(onlineUsersList);
    });
 
-   socket.on("sendShipProductNoti", ({ buyerId }) => {
+   socket.on("sendShipOrderNoti", ({ buyerId, orderId }) => {
       const buyer = getUser(buyerId);
       console.log("Buyer", buyer, "BuyerId: ", buyerId);
-      socket
-         .to(buyer.socketId)
-         .emit("getShipProductNoti", { message: "Your Order has been shipped!" });
-   });
-
-   socket.on("sendDeliverProductNoti", ({ buyerId }) => {
-      const buyer = getUser(buyerId);
-      console.log("Buyer", buyer, "BuyerId: ", buyerId);
-      socket.to(buyer.socketId).emit("getDeliverProductNoti", {
-         message: "Your Order has been delivered!",
+      socket.to(buyer?.socketId).emit("getShipOrderNoti", {
+         message: `Your Order (${orderId}) has been shipped!`,
+         payload: orderId,
       });
    });
 
-   socket.on("sendCreateNewProductNoti", () => {
+   socket.on("sendDeliverOrderNoti", ({ buyerId, orderId }) => {
+      const buyer = getUser(buyerId);
+      console.log("Buyer", buyer, "BuyerId: ", buyerId);
+      socket.to(buyer?.socketId).emit("getDeliverOrderNoti", {
+         message: `Your Order (${orderId}) has been delivered!`,
+         payload: orderId,
+      });
+   });
+
+   socket.on("sendCreateNewProductNoti", ({ productId }) => {
       socket.broadcast.emit("getCreateNewProductNoti", {
          message: "A new product has been added to the store!",
+         payload: productId,
       });
    });
 

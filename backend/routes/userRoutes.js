@@ -4,7 +4,9 @@ import {
    signoutUser,
    getUserAccProfile,
    updateUserAccProfile,
+   getAllUserNotifications,
    signInUser,
+   createNewNotification,
 } from "../controllers/userController.js";
 import { protectRoutes } from "../middleware/authMiddleware.js";
 
@@ -17,5 +19,7 @@ router
    .route("/account-profile")
    .get(protectRoutes, getUserAccProfile)
    .put(protectRoutes, updateUserAccProfile);
+router.get("/:userId/notifications", getAllUserNotifications);
+router.post("/notifications/new", createNewNotification);
 
 export default router;

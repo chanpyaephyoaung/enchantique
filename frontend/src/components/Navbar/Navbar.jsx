@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import {
@@ -6,15 +7,72 @@ import {
    ShoppingCartIcon,
    UserIcon,
    ArrowRightStartOnRectangleIcon,
+   BellIcon,
+   BellAlertIcon,
 } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import Container from "../UI/Container.jsx";
 import SearchForm from "../Forms/SearchForm.jsx";
 import UserAccountDropdown from "./UserAccountDropdown.jsx";
+import { useCreateNewNotiMutation } from "../../slices/usersApiSlice.js";
+import { set } from "mongoose";
+
+let firstLoaded = false;
 
 const Navbar = ({ socket }) => {
+   const [newNoti, setNewNoti] = useState(false);
    const { userAccInfo } = useSelector((state) => state.authUser);
    const { productsInCart } = useSelector((state) => state.shoppingCart);
+
+   const [createNewNoti] = useCreateNewNotiMutation();
+
+   const toggleNotiHandler = () => {
+      setNewNoti(false);
+   };
+
+   useEffect(() => {
+      if (!firstLoaded) {
+         firstLoaded = true;
+
+         socket.on("getShipOrderNoti", (data) => {
+            setNewNoti(true);
+            createNewNoti({
+               user: userAccInfo._id,
+               notificationMessage: data.message,
+               payload: {
+                  type: "Order",
+                  id: data.payload,
+               },
+            });
+         });
+
+         socket.on("getDeliverOrderNoti", (data) => {
+            setNewNoti(true);
+            createNewNoti({
+               user: userAccInfo._id,
+               notificationMessage: data.message,
+               payload: {
+                  type: "Order",
+                  id: data.payload,
+               },
+            });
+         });
+
+         socket.on("getCreateNewProductNoti", (data) => {
+            setNewNoti(true);
+            createNewNoti({
+               user: userAccInfo._id,
+               notificationMessage: data.message,
+               payload: {
+                  type: "Product",
+                  id: data.payload,
+               },
+            });
+         });
+
+         console.log("Socket from App.js: ", socket);
+      }
+   }, [socket, createNewNoti, userAccInfo?._id]);
 
    console.log("Socket From Navbar: ", socket);
 
@@ -69,9 +127,25 @@ const Navbar = ({ socket }) => {
                               </Link>
 
                               {userAccInfo ? (
-                                 <div className="flex items-center gadiv-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal">
-                                    <UserAccountDropdown username={userAccInfo.name} />
-                                 </div>
+                                 <>
+                                    <Link
+                                       onClick={toggleNotiHandler}
+                                       to={`/user/${userAccInfo._id}/notifications`}
+                                       className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
+                                    >
+                                       {newNoti ? (
+                                          <BellAlertIcon className="h-7 w-7" />
+                                       ) : (
+                                          <BellIcon className="h-7 w-7" />
+                                       )}
+                                       <span className="text-base">Notifications</span>
+                                    </Link>
+                                    <div className="flex items-center gadiv-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal">
+                                       <UserAccountDropdown
+                                          username={userAccInfo.name.split(" ")[0]}
+                                       />
+                                    </div>
+                                 </>
                               ) : (
                                  <Link
                                     to="/signin"
@@ -111,6 +185,19 @@ const Navbar = ({ socket }) => {
 
                      {userAccInfo ? (
                         <>
+                           <Disclosure.Button as="button">
+                              <Link
+                                 to={`/user/${userAccInfo._id}/notifications`}
+                                 className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
+                              >
+                                 {newNoti ? (
+                                    <BellAlertIcon className="h-7 w-7" />
+                                 ) : (
+                                    <BellIcon className="h-7 w-7" />
+                                 )}
+                                 Notifications
+                              </Link>
+                           </Disclosure.Button>
                            <Disclosure.Button as="button">
                               <Link
                                  to="/profile"

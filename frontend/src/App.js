@@ -19,18 +19,6 @@ const App = () => {
          firstLoaded = true;
          socket.emit("newUser", userAccInfo?._id);
 
-         socket.on("getShipProductNoti", (data) => {
-            toast.success(data.message);
-         });
-
-         socket.on("getDeliverProductNoti", (data) => {
-            toast.success(data.message);
-         });
-
-         socket.on("getCreateNewProductNoti", (data) => {
-            toast.success(data.message);
-         });
-
          console.log("Socket from App.js: ", socket);
       }
    }, [userAccInfo?._id]);
