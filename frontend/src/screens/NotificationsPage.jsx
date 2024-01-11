@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Container from "../components/UI/Container";
 import { useGetAllUsersNotificationsQuery } from "../slices/usersApiSlice";
-import { useEffect } from "react";
 
 const NotificationsPage = () => {
    const { userAccInfo } = useSelector((state) => state.authUser);

@@ -1,10 +1,15 @@
+import { useEffect } from "react";
 import { useGetAllProductsQuery } from "../../slices/productsApiSlice.js";
 import ProductPreview from "./ProductPreview.jsx";
 
 const ProductList = () => {
-   const { data: products, error, isLoading } = useGetAllProductsQuery();
+   const { data: products, error, isLoading, refetch } = useGetAllProductsQuery();
 
    let contentMarkup = "";
+
+   useEffect(() => {
+      refetch();
+   }, [refetch]);
 
    if (isLoading) {
       contentMarkup = <h2>Please wait...</h2>;

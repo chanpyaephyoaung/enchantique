@@ -65,6 +65,10 @@ const removeOnlineUser = (socketId) => {
    onlineUsersList = onlineUsersList.filter((user) => user.socketId !== socketId);
 };
 
+const removeNullOnlineUser = () => {
+   onlineUsersList = onlineUsersList.filter((user) => user.userId !== null);
+};
+
 const getUser = (userId) => {
    return onlineUsersList.find((user) => user.userId === userId);
 };
@@ -73,6 +77,7 @@ io.on("connection", async (socket) => {
    console.log("a user connected!", socket.id);
    socket.on("newUser", (userId) => {
       addNewOnlineUser(userId, socket.id);
+      removeNullOnlineUser();
       console.log(onlineUsersList);
    });
 

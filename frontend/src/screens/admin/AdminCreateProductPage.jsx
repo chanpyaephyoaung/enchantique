@@ -1,15 +1,19 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import FormContainer from "../../components/UI/FormContainer.jsx";
 import Container from "../../components/UI/Container.jsx";
 import { useCreateNewProductMutation } from "../../slices/productsApiSlice.js";
+import { useCreateNewNotiMutation } from "../../slices/usersApiSlice.js";
 
 const AdminCreateProductPage = () => {
    const socket = useOutletContext();
-
    const navigate = useNavigate();
 
+   const { userAccInfo } = useSelector((state) => state.authUser);
+
    const [createNewProduct, { isLoading }] = useCreateNewProductMutation();
+   const [createNewNoti] = useCreateNewNotiMutation();
 
    const [prodName, setProdName] = useState();
    const [prodPrice, setProdPrice] = useState();
@@ -43,6 +47,15 @@ const AdminCreateProductPage = () => {
             const savedProd = await createNewProduct(newProduct).unwrap();
             socket.emit("sendCreateNewProductNoti", {
                productId: savedProd._id,
+            });
+            createNewNoti({
+               user: userAccInfo._id,
+               notificationMessage: `A new product has been added to the store.`,
+               payload: {
+                  type: "Product",
+                  id: savedProd._id,
+               },
+               isGeneral: true,
             });
             navigate("/admin/products/list");
          } catch (err) {

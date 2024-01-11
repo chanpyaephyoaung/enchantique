@@ -114,18 +114,22 @@ export const updateUserAccProfile = asyncHandler(async (req, res) => {
 
 // Retrieve all user notifications from the database
 export const getAllUserNotifications = asyncHandler(async (req, res) => {
-   const allUserNotifications = await UserNotification.find({ user: req.params.userId });
+   const allUserNotifications = await UserNotification.find({
+      $or: [{ user: req.params.userId }, { isGeneral: true }],
+   });
+   // const allGeneralNotifications = await UserNotification.find({ isGeneral: true });
    res.status(200).json(allUserNotifications);
 });
 
-// Retrieve all user notifications from the database
+// Create a new notification
 export const createNewNotification = asyncHandler(async (req, res) => {
-   const { user, notificationMessage, payload } = req.body;
+   const { user, notificationMessage, payload, isGeneral } = req.body;
 
    const newNoti = new UserNotification({
       user,
       notificationMessage,
       payload,
+      isGeneral: isGeneral || false,
    });
 
    const savedNoti = await newNoti.save();

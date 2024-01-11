@@ -14,6 +14,10 @@ const userNotificationSchema = mongoose.Schema(
       payload: {
          type: Object,
       },
+      isGeneral: {
+         type: Boolean,
+         default: false,
+      },
    },
    { timestamps: true }
 );

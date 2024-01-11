@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import {
@@ -8,66 +8,36 @@ import {
    UserIcon,
    ArrowRightStartOnRectangleIcon,
    BellIcon,
-   BellAlertIcon,
 } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import Container from "../UI/Container.jsx";
 import SearchForm from "../Forms/SearchForm.jsx";
 import UserAccountDropdown from "./UserAccountDropdown.jsx";
 import { useCreateNewNotiMutation } from "../../slices/usersApiSlice.js";
-import { set } from "mongoose";
+import { toast } from "react-toastify";
 
 let firstLoaded = false;
 
 const Navbar = ({ socket }) => {
-   const [newNoti, setNewNoti] = useState(false);
    const { userAccInfo } = useSelector((state) => state.authUser);
    const { productsInCart } = useSelector((state) => state.shoppingCart);
 
    const [createNewNoti] = useCreateNewNotiMutation();
 
-   const toggleNotiHandler = () => {
-      setNewNoti(false);
-   };
-
    useEffect(() => {
       if (!firstLoaded) {
          firstLoaded = true;
 
-         socket.on("getShipOrderNoti", (data) => {
-            setNewNoti(true);
-            createNewNoti({
-               user: userAccInfo._id,
-               notificationMessage: data.message,
-               payload: {
-                  type: "Order",
-                  id: data.payload,
-               },
-            });
+         socket.on("getShipOrderNoti", ({ message }) => {
+            toast.success(message);
          });
 
-         socket.on("getDeliverOrderNoti", (data) => {
-            setNewNoti(true);
-            createNewNoti({
-               user: userAccInfo._id,
-               notificationMessage: data.message,
-               payload: {
-                  type: "Order",
-                  id: data.payload,
-               },
-            });
+         socket.on("getDeliverOrderNoti", ({ message }) => {
+            toast.success(message);
          });
 
-         socket.on("getCreateNewProductNoti", (data) => {
-            setNewNoti(true);
-            createNewNoti({
-               user: userAccInfo._id,
-               notificationMessage: data.message,
-               payload: {
-                  type: "Product",
-                  id: data.payload,
-               },
-            });
+         socket.on("getCreateNewProductNoti", ({ message }) => {
+            toast.success(message);
          });
 
          console.log("Socket from App.js: ", socket);
@@ -129,15 +99,11 @@ const Navbar = ({ socket }) => {
                               {userAccInfo ? (
                                  <>
                                     <Link
-                                       onClick={toggleNotiHandler}
                                        to={`/user/${userAccInfo._id}/notifications`}
                                        className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
                                     >
-                                       {newNoti ? (
-                                          <BellAlertIcon className="h-7 w-7" />
-                                       ) : (
-                                          <BellIcon className="h-7 w-7" />
-                                       )}
+                                       <BellIcon className="h-7 w-7" />
+
                                        <span className="text-base">Notifications</span>
                                     </Link>
                                     <div className="flex items-center gadiv-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal">
@@ -190,11 +156,7 @@ const Navbar = ({ socket }) => {
                                  to={`/user/${userAccInfo._id}/notifications`}
                                  className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
                               >
-                                 {newNoti ? (
-                                    <BellAlertIcon className="h-7 w-7" />
-                                 ) : (
-                                    <BellIcon className="h-7 w-7" />
-                                 )}
+                                 <BellIcon className="h-7 w-7" />
                                  Notifications
                               </Link>
                            </Disclosure.Button>

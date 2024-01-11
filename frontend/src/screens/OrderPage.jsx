@@ -6,6 +6,7 @@ import {
    useShipOrderMutation,
    useDeliverOrderMutation,
 } from "../slices/ordersApiSlice.js";
+import { useCreateNewNotiMutation } from "../slices/usersApiSlice.js";
 
 const OrderPage = () => {
    const socket = useOutletContext();
@@ -14,8 +15,7 @@ const OrderPage = () => {
    const { userAccInfo } = useSelector((state) => state.authUser);
 
    const { data: orderInfo, error, isLoading, refetch } = useGetSingleOrderByIdQuery(orderId);
-
-   console.log(orderInfo);
+   const [createNewNoti] = useCreateNewNotiMutation();
 
    const [shipOrder, { isLoading: loadingShipping }] = useShipOrderMutation();
    const [deliverOrder, { isLoading: loadingDelivery }] = useDeliverOrderMutation();
@@ -24,9 +24,18 @@ const OrderPage = () => {
       try {
          await shipOrder(orderId);
          refetch();
+
          socket.emit("sendShipOrderNoti", {
             buyerId: orderInfo.user._id.toString(),
             orderId: orderInfo._id,
+         });
+         createNewNoti({
+            user: orderInfo.user._id,
+            notificationMessage: `Your order (${orderInfo._id}) has been shipped.`,
+            payload: {
+               type: "Order",
+               id: orderInfo._id,
+            },
          });
       } catch (err) {
          return;
@@ -40,6 +49,14 @@ const OrderPage = () => {
          socket.emit("sendDeliverOrderNoti", {
             buyerId: orderInfo.user._id.toString(),
             orderId: orderInfo._id,
+         });
+         createNewNoti({
+            user: orderInfo.user._id,
+            notificationMessage: `Your order (${orderInfo._id}) has been delivered.`,
+            payload: {
+               type: "Order",
+               id: orderInfo._id,
+            },
          });
       } catch (err) {
          return;
@@ -201,7 +218,7 @@ const OrderPage = () => {
             Order ID - {orderId}
          </h2>
          <h2 className="text-sm md:text-lg font-medium text-clr-black mb-4">
-            Order placed on {new Date(orderInfo?.createdAt).toLocaleString()}
+            Order placed on {isLoading ? "..." : new Date(orderInfo?.createdAt).toLocaleString()}
          </h2>
          {contentMarkup}
       </Container>
