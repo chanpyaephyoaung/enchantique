@@ -70,7 +70,7 @@ describe("Integration tests for users endpoints with database.", () => {
       assert.property(res.body, "joinedDate");
    });
 
-   it("Test 'POST' /users/signin - Does not sign in the user with wrong email", async () => {
+   it("Test 'POST' /users/signin - Should not sign in the user with wrong email", async () => {
       const createdDumUsers = await User.insertMany(users);
       const existingUserId = createdDumUsers[1]._id;
 
@@ -89,7 +89,7 @@ describe("Integration tests for users endpoints with database.", () => {
       assert.equal(res.status, 401);
    });
 
-   it("Test 'POST' /users/signin - Does not sign in the user with wrong password", async () => {
+   it("Test 'POST' /users/signin - Should not sign in the user with wrong password", async () => {
       const createdDumUsers = await User.insertMany(users);
       const existingUserId = createdDumUsers[1]._id;
 
@@ -178,7 +178,7 @@ describe("Integration tests for users endpoints with database.", () => {
       assert.property(res.body, "telephoneNum");
    });
 
-   it("Test 'GET' /users/account-profile - Does not retrieve the account profile of a user when NOT signed in", async () => {
+   it("Test 'GET' /users/account-profile - Should not retrieve the account profile of a user when NOT signed in", async () => {
       await User.insertMany(users);
       const notExistingUserId = "659f0a906bf7e2fa49254d99";
 
@@ -214,7 +214,7 @@ describe("Integration tests for users endpoints with database.", () => {
       assert.property(res.body, "telephoneNum");
    });
 
-   it("Test 'PUT' /users/account-profile - Does not update the account profile of a user when NOT signed in", async () => {
+   it("Test 'PUT' /users/account-profile - Should not update the account profile of a user when NOT signed in", async () => {
       await User.insertMany(users);
       const mockedUserId = "659f0a906bf7e2fa49254d99";
 

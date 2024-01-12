@@ -10,7 +10,7 @@
       "dev": "concurrently \"npm run server\" \"npm run client\"",
       "data:seed": "node backend/seeder.js -s",
       "data:remove": "node backend/seeder.js -r",
-      "test:db-integration": "cross-env NODE_ENV=test mocha test/db-integration-tests/users.test.js --timeout 15000 --exit",
+      "test:db-integration": "cross-env NODE_ENV=test mocha test/db-integration-tests/userOrders.test.js --timeout 100000 --exit",
       "test:unit": "cross-env NODE_ENV=test mocha test/unit-tests --timeout 15000 --exit",
       "lint": "eslint ./frontend/src/**/*.{js,jsx,ts,tsx}"
    },

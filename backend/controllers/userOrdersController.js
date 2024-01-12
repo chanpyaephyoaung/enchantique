@@ -12,7 +12,7 @@ export const getAllOrdersByUser = asyncHandler(async (req, res) => {
 });
 
 export const getSingleOrderByIdByUser = asyncHandler(async (req, res) => {
-   const targetUserOrder = await Order.findById(req.params.orderId).populate(
+   const targetUserOrder = await Order.findById(req?.params?.orderId).populate(
       "user",
       "email name telephoneNum"
    );
@@ -57,7 +57,6 @@ export const createOrderByUser = asyncHandler(async (req, res) => {
 
       // Save new order to database
       const savedOrder = await newOrder.save();
-
       res.status(201).json(savedOrder);
    } else {
       res.status(400);
@@ -115,7 +114,7 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
 
    await targetUserOrder.save();
 
-   res.json({ url: session.url });
+   res.status(201).json({ url: session.url });
 });
 
 export const cancelOrder = asyncHandler(async (req, res) => {

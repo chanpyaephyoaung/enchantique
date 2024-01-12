@@ -94,7 +94,7 @@ describe("Integration tests for products endpoints with database.", () => {
       assert.property(res.body, "stocksCount");
    });
 
-   it("Test 'GET' /products/:productId - Does not retrieve a single product by id if the product does not exist in the database", async () => {
+   it("Test 'GET' /products/:productId - Should not retrieve a single product by id if the product does not exist in the database", async () => {
       const mockProductId = "659f0a906bf7e2fa49254d99";
 
       const res = await request(app).get(`/api/products/${mockProductId}`);
@@ -130,7 +130,7 @@ describe("Integration tests for products endpoints with database.", () => {
       assert.property(res.body, "stocksCount");
    });
 
-   it("Test 'POST' /products/new - Does not create a new product (Without admin privilege)", async () => {
+   it("Test 'POST' /products/new - Should not create a new product (Without admin privilege)", async () => {
       const createdDumUsers = await User.insertMany(users);
       const user = createdDumUsers[1]._id;
 
@@ -175,7 +175,7 @@ describe("Integration tests for products endpoints with database.", () => {
       assert.equal(res.status, 204);
    });
 
-   it("Test 'DELETE' /products/:productId - Does not delete an existing product (Without admin privilege)", async () => {
+   it("Test 'DELETE' /products/:productId - Should not delete an existing product (Without admin privilege)", async () => {
       const createdDumUsers = await User.insertMany(users);
       const admin = createdDumUsers[0]._id;
       const user = createdDumUsers[1]._id;
@@ -234,7 +234,7 @@ describe("Integration tests for products endpoints with database.", () => {
       assert.equal(res.body.message, "New rating given.");
    });
 
-   it("Test 'POST' /products/:productId/rate - Does not give a rating to a product if the user has already rated it. (As a normal user)", async () => {
+   it("Test 'POST' /products/:productId/rate - Should not give a rating to a product if the user has already rated it. (As a normal user)", async () => {
       const createdDumUsers = await User.insertMany(users);
       const admin = createdDumUsers[0]._id;
       const user = createdDumUsers[1]._id;
