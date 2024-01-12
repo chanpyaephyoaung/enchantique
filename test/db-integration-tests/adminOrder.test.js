@@ -66,7 +66,7 @@ const generateJwtToken = (userId) => {
    return jwtToken;
 };
 
-describe("Integration tests for users endpoints with database.", () => {
+describe("Integration tests for ADMIN ORDERS endpoints with database.", () => {
    beforeEach(async () => {
       await User.deleteMany({});
       await Order.deleteMany({});
@@ -77,39 +77,39 @@ describe("Integration tests for users endpoints with database.", () => {
       await Order.deleteMany({});
    });
 
-   // it("Test 'GET' /orders/admin - Retrieve all orders by admin (With admin privilege)", async () => {
-   //    const createdDumUsers = await User.insertMany(users);
-   //    const admin = createdDumUsers[0]._id;
-   //    const user = createdDumUsers[1]._id;
+   it("Test 'GET' /orders/admin - Retrieve all orders by admin (With admin privilege)", async () => {
+      const createdDumUsers = await User.insertMany(users);
+      const admin = createdDumUsers[0]._id;
+      const user = createdDumUsers[1]._id;
 
-   //    const mockJwtToken = generateJwtToken(admin);
+      const mockJwtToken = generateJwtToken(admin);
 
-   //    await createMockOrder(admin, user);
+      await createMockOrder(admin, user);
 
-   //    const res = await request(app)
-   //       .get("/api/orders/admin")
-   //       .set("Cookie", `jwtCookie=${mockJwtToken}`);
+      const res = await request(app)
+         .get("/api/orders/admin")
+         .set("Cookie", `jwtCookie=${mockJwtToken}`);
 
-   //    assert.equal(res.status, 200);
-   //    assert.isArray(res.body, "The response body should be an array.");
-   //    assert.equal(res.body.length, 1);
-   // });
+      assert.equal(res.status, 200);
+      assert.isArray(res.body, "The response body should be an array.");
+      assert.equal(res.body.length, 1);
+   });
 
-   // it("Test 'GET' /orders/admin - Should not retrieve all orders (WITHOUT admin privilege)", async () => {
-   //    const createdDumUsers = await User.insertMany(users);
-   //    const admin = createdDumUsers[0]._id;
-   //    const user = createdDumUsers[1]._id;
+   it("Test 'GET' /orders/admin - Should not retrieve all orders (WITHOUT admin privilege)", async () => {
+      const createdDumUsers = await User.insertMany(users);
+      const admin = createdDumUsers[0]._id;
+      const user = createdDumUsers[1]._id;
 
-   //    const mockJwtToken = generateJwtToken(user);
+      const mockJwtToken = generateJwtToken(user);
 
-   //    await createMockOrder(admin, user);
+      await createMockOrder(admin, user);
 
-   //    const res = await request(app)
-   //       .get("/api/orders/admin")
-   //       .set("Cookie", `jwtCookie=${mockJwtToken}`);
+      const res = await request(app)
+         .get("/api/orders/admin")
+         .set("Cookie", `jwtCookie=${mockJwtToken}`);
 
-   //    assert.equal(res.status, 401);
-   // });
+      assert.equal(res.status, 401);
+   });
 
    it("Test 'PUT' /orders/admin/:orderId/shipped - Set an order to 'shipped' (With admin privilege)", async () => {
       const createdDumUsers = await User.insertMany(users);

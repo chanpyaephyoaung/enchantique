@@ -17,7 +17,7 @@ const generateJwtToken = (userId) => {
    return jwtToken;
 };
 
-describe("Integration tests for users endpoints with database.", () => {
+describe("Integration tests for ADMIN USERS endpoints with database.", () => {
    beforeEach(async () => {
       await User.deleteMany({});
    });
