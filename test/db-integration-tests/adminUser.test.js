@@ -9,17 +9,6 @@ import jwt from "jsonwebtoken";
 
 process.env.NODE_ENV = "test";
 
-let admin;
-
-const generateMockUser = (seller) => {
-   return {
-      name: "Bob",
-      email: "bob@gmail.com",
-      password: "123abc",
-      telephoneNum: "199",
-   };
-};
-
 const generateJwtToken = (userId) => {
    const jwtToken = jwt.sign({ userId }, process.env.JWT_TOKEN_SECRET, {
       expiresIn: "10d",
