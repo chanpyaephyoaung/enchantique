@@ -35,8 +35,8 @@ jobs:
            working-directory: ./frontend
            run: npm install
 
-         - name: Run integration tests
-           run: npm run test:integration
+         - name: Run database integration tests
+           run: npm run test:db-integration
 
          - name: Run unit tests
            run: npm run test:unit
