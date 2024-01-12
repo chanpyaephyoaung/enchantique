@@ -7,7 +7,7 @@ export const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 export const deleteSingleUserById = asyncHandler(async (req, res) => {
-   const targetUser = await User.findById(req.body.userId);
+   const targetUser = await User.findById(req.body?.userId);
 
    if (!targetUser) {
       res.status(404);
