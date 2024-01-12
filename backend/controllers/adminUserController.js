@@ -9,7 +9,7 @@ export const getAllUsers = asyncHandler(async (req, res) => {
 export const deleteSingleUserById = asyncHandler(async (req, res) => {
    const targetUser = await User.findById(req.body.userId);
 
-   if (!User) {
+   if (!targetUser) {
       res.status(404);
       throw new Error("Requested user not found.");
    } else {

@@ -162,7 +162,7 @@ const Navbar = ({ socket }) => {
                            </Disclosure.Button>
                            <Disclosure.Button as="button">
                               <Link
-                                 to="/profile"
+                                 to="/account-profile"
                                  className="flex items-center gap-x-2 text-clr-black hover:text-clr-primary rounded-md px-3 py-2 text-sm font-normal"
                               >
                                  <UserIcon className="h-7 w-7 md:h-8 md:w-8" />

@@ -4,7 +4,6 @@ import User from "../dataModels/userModel.js";
 
 export const protectRoutes = asyncHandler(async (req, res, next) => {
    let jwtToken;
-
    jwtToken = req.cookies.jwtCookie;
 
    if (!jwtToken) {
