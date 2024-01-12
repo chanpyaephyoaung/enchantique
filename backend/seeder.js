@@ -9,6 +9,8 @@ import Product from "./dataModels/productModel.js";
 import User from "./dataModels/userModel.js";
 import ProductRating from "./dataModels/productRatingModel.js";
 import Order from "./dataModels/orderModel.js";
+import UserNotification from "./dataModels/userNotificationModel.js";
+import userNotifications from "./data/dummyUserNotifications.js";
 
 dotenv.config();
 
@@ -20,16 +22,24 @@ export const seedDummyData = async () => {
       await User.deleteMany();
       await ProductRating.deleteMany();
       await Order.deleteMany();
+      await UserNotification.deleteMany();
 
       const createdDumUsers = await User.insertMany(users);
       const admin = createdDumUsers[0]._id;
+      const user = createdDumUsers[1]._id;
 
       const sampleProducts = products.map((prod) => ({
          ...prod,
          seller: admin,
       }));
 
-      const createdProducts = await Product.insertMany(sampleProducts);
+      const sampleUserNotis = userNotifications.map((noti) => ({
+         ...noti,
+         user: user,
+      }));
+
+      await Product.insertMany(sampleProducts);
+      await UserNotification.insertMany(sampleUserNotis);
       console.log("Dummy Data Successfully Seeded!");
 
       if (process.env.NODE_ENV !== "test") {
@@ -47,6 +57,7 @@ const removeDummyData = async () => {
       await User.deleteMany();
       await ProductRating.deleteMany();
       await Order.deleteMany();
+      await UserNotification.deleteMany();
 
       console.log("Dummy Data Successfully Removed!");
       process.exit();

@@ -8,6 +8,7 @@ import users from "../../backend/data/dummyUsers.js";
 import products from "../../backend/data/dummyProducts.js";
 import app from "../../backend/server.js";
 import jwt from "jsonwebtoken";
+import ProductRating from "../../backend/dataModels/productRatingModel.js";
 
 process.env.NODE_ENV = "test";
 
@@ -33,15 +34,17 @@ const generateJwtToken = (userId) => {
    return jwtToken;
 };
 
-describe("Integration tests for products controllers.", () => {
+describe("Integration tests for products endpoints with database.", () => {
    beforeEach(async () => {
       await Product.deleteMany({});
       await User.deleteMany({});
+      await ProductRating.deleteMany({});
    });
 
    afterEach(async () => {
       await Product.deleteMany({});
       await User.deleteMany({});
+      await ProductRating.deleteMany({});
    });
 
    it("Test 'GET' /products - Retrieve all products", async () => {
@@ -89,6 +92,15 @@ describe("Integration tests for products controllers.", () => {
       assert.property(res.body, "rating");
       assert.property(res.body, "ratings");
       assert.property(res.body, "stocksCount");
+   });
+
+   it("Test 'GET' /products/:productId - Does not retrieve a single product by id if the product does not exist in the database", async () => {
+      const mockProductId = "659f0a906bf7e2fa49254d99";
+
+      const res = await request(app).get(`/api/products/${mockProductId}`);
+
+      assert.equal(res.status, 404, "Request unsuccessful.");
+      assert.equal(res.body.errMessage, "Resource not found!");
    });
 
    it("Test 'POST' /products/new - Create a new product (Only with admin privilege)", async () => {
@@ -194,7 +206,7 @@ describe("Integration tests for products controllers.", () => {
       assert.equal(res.status, 401);
    });
 
-   it("Test 'POST' /products/:productId/rate - Give rating to a product (As a normal user)", async () => {
+   it("Test 'POST' /products/:productId/rate - Give a rating to a product (As a normal user)", async () => {
       const createdDumUsers = await User.insertMany(users);
       const admin = createdDumUsers[0]._id;
       const user = createdDumUsers[1]._id;
@@ -222,7 +234,7 @@ describe("Integration tests for products controllers.", () => {
       assert.equal(res.body.message, "New rating given.");
    });
 
-   it("Test 'POST' /products/:productId/rate - Does not give rating to a product if the user has already rated it. (As a normal user)", async () => {
+   it("Test 'POST' /products/:productId/rate - Does not give a rating to a product if the user has already rated it. (As a normal user)", async () => {
       const createdDumUsers = await User.insertMany(users);
       const admin = createdDumUsers[0]._id;
       const user = createdDumUsers[1]._id;
@@ -252,5 +264,6 @@ describe("Integration tests for products controllers.", () => {
          .send({ prodRating: 4 });
 
       assert.equal(newRes.status, 400);
+      assert.equal(newRes.body.errMessage, "You have already rated this product.");
    });
 });

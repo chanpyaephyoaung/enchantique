@@ -69,7 +69,7 @@ export const signoutUser = asyncHandler(async (req, res) => {
 });
 
 export const getUserAccProfile = asyncHandler(async (req, res) => {
-   const currentUser = await User.findById(req.currentUser._id);
+   const currentUser = await User.findById(req?.currentUser?._id);
 
    if (!currentUser) {
       res.status(404);
@@ -86,7 +86,7 @@ export const getUserAccProfile = asyncHandler(async (req, res) => {
 });
 
 export const updateUserAccProfile = asyncHandler(async (req, res) => {
-   const currentUser = await User.findById(req.currentUser._id);
+   const currentUser = await User.findById(req?.currentUser?._id);
 
    if (!currentUser) {
       res.status(404);

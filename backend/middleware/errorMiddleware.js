@@ -7,7 +7,7 @@ export const resourceNotFound = (req, res, next) => {
 
 export const errorHandler = (err, req, res, next) => {
    let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-   console.log(err);
+   // console.log(err);
    let errMessage = err.message;
 
    // Check for Mongoose cast error

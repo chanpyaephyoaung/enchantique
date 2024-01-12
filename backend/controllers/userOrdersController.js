@@ -101,7 +101,6 @@ export const checkoutOrderByUser = asyncHandler(async (req, res) => {
          quantity: product.quantity,
       };
    });
-   console.log(req.body);
    const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
