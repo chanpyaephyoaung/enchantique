@@ -67,7 +67,7 @@ const OrdersPage = () => {
 
    return (
       <Container type="page">
-         <h2 className="text-xl text-clr-black md:text-3xl font-medium mb-9">Orders</h2>
+         <h2 className="text-xl text-clr-black md:text-3xl font-medium mb-9">User Orders</h2>
          {contentMarkup}
       </Container>
    );
