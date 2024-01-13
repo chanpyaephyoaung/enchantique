@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Rating from "../UI/Rating.jsx";
 
-const ProductPreview = ({ id, name, imagePath, price, rating, reviewsCount }) => {
+const ProductPreview = ({ id, name, imagePath, price, rating }) => {
    return (
       <div data-testid="productPreview" className="w-full grid gap-1 rounded cursor-pointer">
          <Link data-testid="productImgLink" to={`/product/${id}`}>
@@ -18,7 +18,7 @@ const ProductPreview = ({ id, name, imagePath, price, rating, reviewsCount }) =>
             ${price.toFixed(2)}
          </span>
          <div className="flex gap-x-2 items-center">
-            <Rating ratingVal={rating} reviewsCount={reviewsCount} />
+            <Rating ratingVal={rating} />
          </div>
       </div>
    );

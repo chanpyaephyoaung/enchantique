@@ -28,7 +28,6 @@ const ProductList = () => {
                   imagePath={product.image}
                   price={product.price}
                   rating={product.rating}
-                  reviewsCount={product.numReviews}
                />
             ))}
          </div>
