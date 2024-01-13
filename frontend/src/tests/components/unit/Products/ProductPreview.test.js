@@ -11,7 +11,6 @@ describe("Test ProductPreview Component", () => {
          image: "/images/product_test.jpg",
          price: 10,
          rating: 4,
-         reviewsCount: 10,
       };
       const { getByTestId } = render(
          <BrowserRouter>
@@ -21,7 +20,6 @@ describe("Test ProductPreview Component", () => {
                imagePath={mockProdObj.image}
                price={mockProdObj.price}
                rating={mockProdObj.rating}
-               reviewsCount={mockProdObj.reviewsCount}
             />
          </BrowserRouter>
       );

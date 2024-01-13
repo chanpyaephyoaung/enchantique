@@ -4,6 +4,7 @@ import ProductPreview from "./ProductPreview.jsx";
 
 const ProductList = () => {
    const { data: products, error, isLoading, refetch } = useGetAllProductsQuery();
+   console.log("Loading: ", isLoading);
 
    let contentMarkup = "";
 
@@ -14,9 +15,7 @@ const ProductList = () => {
    if (isLoading) {
       contentMarkup = <h2>Please wait...</h2>;
    } else if (error) {
-      console.log(error);
       contentMarkup = <h2 className="text-clr-danger">{error?.data?.errMessage || error.error}</h2>;
-      console.log("Has a error!");
    } else {
       contentMarkup = (
          <div className="grid gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
