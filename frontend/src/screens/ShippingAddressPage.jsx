@@ -35,7 +35,9 @@ const ShippingAddressPage = () => {
    return (
       <Container type="page">
          <FormContainer>
-            <h2 className="text-xl text-clr-black md:text-3xl font-medium">Shipping Address</h2>
+            <h2 data-testid="heading" className="text-xl text-clr-black md:text-3xl font-medium">
+               Shipping Address
+            </h2>
             <form className="grid gap-6" onSubmit={submitHandler}>
                <label className="relative text-xs grid justify-items-start gap-y-2">
                   <span className="sr-only">first address line</span>

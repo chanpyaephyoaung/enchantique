@@ -64,6 +64,7 @@ const ShoppingCartPage = () => {
                         {prod.stocksCount > 0 && (
                            <div className="grid">
                               <select
+                                 data-testid="quantity-select"
                                  className="justify-self-start p-1 border border-clr-black-faded"
                                  name="quantity"
                                  id="quantity"
@@ -95,29 +96,45 @@ const ShoppingCartPage = () => {
                <p className="text-sm md:text-xl font-medium text-clr-black">
                   Total Products Price:
                </p>
-               <p className="text-sm md:text-2xl font-semibold text-clr-primary">
+               <p
+                  data-testid="totalProductsPrice"
+                  className="text-sm md:text-2xl font-semibold text-clr-primary"
+               >
                   ${totalRawProductPrice}
                </p>
             </div>
 
             <div className="justify-self-center text-center grid gap-y-2">
                <p className="text-sm md:text-xl font-medium text-clr-black">Tax Amount:</p>
-               <p className="text-sm md:text-2xl font-semibold text-clr-primary">${taxAmount}</p>
+               <p
+                  data-testid="taxAmount"
+                  className="text-sm md:text-2xl font-semibold text-clr-primary"
+               >
+                  ${taxAmount}
+               </p>
             </div>
 
             <div className="justify-self-center text-center grid gap-y-2">
                <p className="text-sm md:text-xl font-medium text-clr-black">Shipping Amount:</p>
-               <p className="text-sm md:text-2xl font-semibold text-clr-primary">
+               <p
+                  data-testid="shippingAmount"
+                  className="text-sm md:text-2xl font-semibold text-clr-primary"
+               >
                   ${shippingAmount}
                </p>
             </div>
 
             <div className="justify-self-center text-center grid gap-y-2">
-               <p className="text-sm md:text-xl font-medium text-clr-black">
+               <p data-testid="subtotal" className="text-sm md:text-xl font-medium text-clr-black">
                   Subtotal ({productsInCart.reduce((acc, product) => acc + product.quantity, 0)})
                   items:
                </p>
-               <p className="text-sm md:text-2xl font-semibold text-clr-primary">${totalAmount}</p>
+               <p
+                  data-testid="total"
+                  className="text-sm md:text-2xl font-semibold text-clr-primary"
+               >
+                  ${totalAmount}
+               </p>
                <button
                   onClick={checkoutHandler}
                   type="button"

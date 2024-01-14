@@ -1,7 +1,7 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import { renderWithProviders } from "../../../../helpers/testRenderFunc.js";
+import { renderWithProviders } from "../../../helpers/testRenderFunc.js";
 import { describe, expect, it } from "@jest/globals";
-import AdminDashboard from "../../../../components/Admin/AdminDashboard.jsx";
+import AdminDashboard from "../../../components/Admin/AdminDashboard.jsx";
 import { BrowserRouter } from "react-router-dom";
 
 describe("Test AdminDashboard Component", () => {

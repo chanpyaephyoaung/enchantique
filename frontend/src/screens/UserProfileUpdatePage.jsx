@@ -44,7 +44,9 @@ const UserProfileUpdatePage = () => {
    return (
       <Container type="page">
          <FormContainer>
-            <h2 className="text-xl text-clr-black md:text-3xl font-medium">Update Profiles</h2>
+            <h2 data-testid="heading" className="text-xl text-clr-black md:text-3xl font-medium">
+               Update Profile
+            </h2>
             <form className="grid gap-6" onSubmit={submitHandler}>
                <label className="relative text-xs grid justify-items-start gap-y-2">
                   <span className="sr-only">username</span>

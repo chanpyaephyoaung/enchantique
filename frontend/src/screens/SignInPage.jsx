@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Container from "../components/UI/Container.jsx";
 import { useSignInMutation } from "../slices/usersApiSlice.js";
 import { setSignInDetails } from "../slices/authUserSlice.js";
+import { toast } from "react-toastify";
 
 const SignInPage = () => {
    const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const SignInPage = () => {
          const res = await login({ email, password }).unwrap();
          dispatch(setSignInDetails({ ...res }));
          navigate(redirectPath);
+         toast.success("You are now signed in!");
       } catch (err) {
          setError(err?.data?.errMessage || err.error);
       }
@@ -45,7 +47,9 @@ const SignInPage = () => {
    return (
       <Container type="page">
          <FormContainer>
-            <h2 className="text-xl text-clr-black md:text-3xl font-medium">Sign In</h2>
+            <h2 data-testid="heading" className="text-xl text-clr-black md:text-3xl font-medium">
+               Sign In
+            </h2>
             <form className="grid gap-6" onSubmit={submitHandler}>
                <label className="relative text-xs grid justify-items-start gap-y-2">
                   <span className="sr-only">email address</span>

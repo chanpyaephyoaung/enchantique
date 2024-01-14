@@ -43,9 +43,9 @@ jobs:
          - name: Run unit tests
            run: npm run test:unit
 
-         - name: Run react unit tests
+         - name: Run react components tests
            working-directory: ./frontend
-           run: npm run test:unit
+           run: npm run test
 
          - name: Run ESLint tests
            run: npm run lint

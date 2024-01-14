@@ -27,8 +27,7 @@
    "scripts": {
       "start": "react-scripts start",
       "build": "react-scripts build",
-      "test:unit": "react-scripts test --verbose tests/components/unit",
-      "test:integration": "react-scripts test --verbose tests/components/integration",
+      "test": "react-scripts test --verbose tests/components/",
       "eject": "react-scripts eject"
    },
    "browserslist": {

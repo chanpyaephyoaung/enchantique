@@ -13,7 +13,6 @@ const NotificationsPage = () => {
       isLoading: loadingNoti,
       refetch,
    } = useGetAllUsersNotificationsQuery(userAccInfo._id);
-   console.log(myNotis);
 
    useEffect(() => {
       refetch();

@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import Rating from "../../../components/UI/Rating.jsx";
+import Rating from "../../components/UI/Rating.jsx";
 import { describe, expect, it } from "@jest/globals";
 
 describe("Test Rating Component", () => {

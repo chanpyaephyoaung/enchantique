@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import ProductPreview from "../../../../components/Products/ProductPreview";
+import ProductPreview from "../../../components/Products/ProductPreview";
 import { describe, expect, it } from "@jest/globals";
 
 describe("Test ProductPreview Component", () => {
