@@ -6,6 +6,7 @@ const OrdersPage = () => {
    const { data: allOrders, error, isLoading } = useGetAllOrdersByAdminQuery();
 
    let contentMarkup = "";
+   console.log(allOrders);
 
    if (isLoading) {
       contentMarkup = <h2 className="mt-8">Please wait...</h2>;
@@ -36,7 +37,7 @@ const OrdersPage = () => {
                         <td className="p-2 border-2 border-clr-black-faded">
                            {new Date(order?.createdAt).toLocaleString()}
                         </td>
-                        <td className="p-2 border-2 border-clr-black-faded">{order.user.name}</td>
+                        <td className="p-2 border-2 border-clr-black-faded">{order?.user?.name}</td>
                         <td className="p-2 border-2 border-clr-black-faded">
                            ${order.totalAmount.toFixed(2)}
                         </td>
