@@ -11,7 +11,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 import Container from "../UI/Container.jsx";
-import SearchForm from "../Forms/SearchForm.jsx";
 import UserAccountDropdown from "./UserAccountDropdown.jsx";
 import { useCreateNewNotiMutation } from "../../slices/usersApiSlice.js";
 import { toast } from "react-toastify";
@@ -76,7 +75,6 @@ const Navbar = ({ socket }) => {
 
                         <div className="hidden sm:ml-6 sm:block">
                            <div className="flex gap-x-3 items-center">
-                              <SearchForm />
                               <Link
                                  to="/shopping-cart"
                                  className="flex items-center gap-x-2 text-black hover:text-clr-primary rounded-md px-1 py-2 text-sm font-normal"
@@ -190,10 +188,6 @@ const Navbar = ({ socket }) => {
                            </Link>
                         </Disclosure.Button>
                      )}
-
-                     <div className="px-3 py-2">
-                        <SearchForm />
-                     </div>
                   </div>
                </Disclosure.Panel>
             </>

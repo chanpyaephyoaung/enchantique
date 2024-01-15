@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { baseApiSlice } from "../slices/baseApiSliceTest.js";
+import { baseApiSlice } from "../slices/baseApiSlice.js";
 import shoppingCartSliceReducer from "../slices/shoppingCartSlice.js";
 import authUserSliceReducer from "../slices/authUserSlice.js";
 

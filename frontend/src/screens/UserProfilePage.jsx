@@ -43,10 +43,14 @@ const UserProfilePage = () => {
                            ${order.totalAmount.toFixed(2)}
                         </td>
                         <td className="p-2 border-2 border-clr-black-faded">
-                           {new Date(order?.shippingDate).toLocaleString()}
+                           {order.shippingDate
+                              ? new Date(order?.shippingDate).toLocaleString()
+                              : "Not shipped yet."}
                         </td>
                         <td className="p-2 border-2 border-clr-black-faded">
-                           {new Date(order?.deliveryDate).toLocaleString()}
+                           {order.deliveryDate
+                              ? new Date(order?.deliveryDate).toLocaleString()
+                              : "Not delivered yet."}
                         </td>
                         <td className="p-2 border-2 border-clr-black-faded">
                            <Link
