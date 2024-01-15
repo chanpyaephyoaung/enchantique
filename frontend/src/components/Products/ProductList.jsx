@@ -19,7 +19,7 @@ const ProductList = () => {
       console.log("Has a error!");
    } else {
       contentMarkup = (
-         <div className="grid gap-x-6 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
+         <div className="grid gap-x-6 gap-y-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {products.map((product) => (
                <ProductPreview
                   key={product._id}
