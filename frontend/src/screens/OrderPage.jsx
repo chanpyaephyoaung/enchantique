@@ -104,6 +104,9 @@ const OrderPage = () => {
                         ? "The order has been shipped."
                         : "The order is not yet shipped."}
                   </span>
+                  {orderInfo.hasBeenShipped && (
+                     <span>{new Date(orderInfo?.shippingDate).toLocaleString()}</span>
+                  )}
                   {loadingShipping && <span className="">Loading...</span>}
                   {orderInfo.hasBeenPaid &&
                      userAccInfo &&
@@ -130,6 +133,9 @@ const OrderPage = () => {
                         ? "The order has been delivered."
                         : "The order is not yet delivered."}
                   </span>
+                  {orderInfo.hasBeenDelivered && (
+                     <span>{new Date(orderInfo?.deliveryDate).toLocaleString()}</span>
+                  )}
                   {loadingDelivery && <span className="">Loading...</span>}
                   {orderInfo.hasBeenPaid &&
                      orderInfo.hasBeenShipped &&
