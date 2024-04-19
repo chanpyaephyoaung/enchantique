@@ -44,14 +44,14 @@ jobs:
            run: npm install
 
          - name: Run db integration tests
-           run: npm run test:db-integration
+           run: npm run test:db-integration --cov
 
          - name: Run unit tests
-           run: npm run test:unit
+           run: npm run test:unit --cov
 
          - name: Run react components tests
            working-directory: ./frontend
-           run: npm run test
+           run: npm run test --cov
 
          - name: Run ESLint tests
            run: npm run lint
